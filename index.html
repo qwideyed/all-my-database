@@ -1,1 +1,49 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Website</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 2.5rem;
+      border-radius: 1.25rem;
+      max-width: 480px;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    h1 { color: #38bdf8; margin-bottom: 0.75rem; }
+    p { color: #94a3b8; line-height: 1.6; margin-bottom: 1.5rem; }
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background: #0284c7;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Live on GitHub Pages</span>
+    <h1 style="margin-top: 1rem;">Hello World!</h1>
+    <p>My new website is live with $0 spent on hosting or domain costs.</p>
+  </div>
+</body>
+</html>
