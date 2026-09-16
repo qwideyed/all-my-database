@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AllMyAni - Media Entry</title>
+  
+  <!-- Google Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    :root {
+      --bg: #090c10;
+      --surface: #0f141c;
+      --card: #151b24;
+      --card-hover: #1c2432;
+      --card-inner: #1f2736;
+      --border: #232d3d;
+      --border-hover: #37465e;
+      --accent: #ff3366;
+      --accent-glow: rgba(255, 51, 102, 0.25);
+      --accent-blue: #38bdf8;
+      --accent-green: #10b981;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --nsfw: #ef4444;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      font-size: 1.25rem;
+    }
+
+    /* Top Navigation Header */
+    header {
+      width: 100%;
+      background: rgba(15, 20, 28, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    .nav-container {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.6px;
+    }
+
+    .brand span { color: var(--accent); }
+
+    .btn-back {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.15s;
+    }
+
+    .btn-back:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    /* Hero Banner Area */
+    .banner-container {
+      width: 100%;
+      height: 420px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-color: #0b0e14;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 12, 16, 0.2) 0%, rgba(9, 12, 16, 0.98) 100%);
+    }
+
+    .banner-play-btn {
+      position: absolute;
+      bottom: 2rem;
+      right: 3rem;
+      z-index: 10;
+      background: rgba(15, 20, 28, 0.85);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+
+    .banner-play-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* Main Container Content */
+    main {
+      width: 100%;
+      max-width: 1540px;
+      padding: 0 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      top: -150px;
+      z-index: 10;
+    }
+
+    /* Header Profile Card Row */
+    .entry-header {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      align-items: flex-end;
+    }
+
+    .poster-box {
+      width: 280px;
+      height: 400px;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .poster-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: var(--card-inner);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .title-primary {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+    }
+
+    .title-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Interactive Tracker Deck */
+    .tracker-deck {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius);
+      margin-top: 0.5rem;
+      width: fit-content;
+    }
+
+    .tracker-select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .progress-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .step-btn {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-weight: 800;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-btn .material-symbols-outlined { font-size: 1rem; }
+
+    /* Layout Split: Left (Wiki Sidebar) & Right (Content Columns) */
+    .entry-workspace {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+    }
+
+    /* Left Sidebar */
+    .meta-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .meta-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      font-size: 0.85rem;
+    }
+
+    .meta-card-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.45rem;
+    }
+
+    .meta-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .meta-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .meta-val {
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* Score Distribution Bars */
+    .score-dist-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .score-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: var(--card);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    /* Outbound Portals */
+    .portal-chip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .portal-link {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.15s;
+    }
+
+    .portal-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Center Tabs */
+    .content-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      gap: 1.5rem;
+    }
+
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.8rem 0.4rem;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-tab-btn.active {
+      color: var(--text);
+    }
+
+    .nav-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Synopsis */
+    .synopsis-text {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    /* Franchise Relations Strip */
+    .relation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .relation-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .relation-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .relation-poster {
+      height: 140px;
+      width: 100%;
+      background: #111;
+      object-fit: cover;
+      display: block;
+    }
+
+    .relation-meta {
+      padding: 0.6rem;
+    }
+
+    .relation-type {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .relation-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.2rem;
+    }
+
+    /* Characters & Voice Cast Grid */
+    .cast-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .cast-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+      height: 85px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .cast-card:hover { border-color: var(--border-hover); }
+
+    .person-side {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .person-side.right {
+      text-align: right;
+      flex-direction: row-reverse;
+    }
+
+    .person-thumb {
+      width: 65px;
+      height: 85px;
+      object-fit: cover;
+      background: #111;
+    }
+
+    .person-info {
+      padding: 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .person-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .person-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Soundtrack & Jukebox Deck */
+    .soundtrack-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .soundtrack-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .song-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .song-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+    }
+
+    /* Episode Selector Grid */
+    .episode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 0.5rem;
+      max-height: 280px;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+
+    .ep-badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.5rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ep-badge:hover { border-color: var(--accent); }
+
+    .ep-badge.watched {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Production Staff Strip */
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .staff-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      overflow: hidden;
+      height: 65px;
+    }
+
+    .staff-thumb {
+      width: 50px;
+      height: 65px;
+      object-fit: cover;
+      background: #111;
+    }
+
+    /* Personal Journal / Review Deck */
+    .journal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .journal-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .journal-slider {
+      flex: 1;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .journal-textarea {
+      width: 100%;
+      min-height: 100px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      resize: vertical;
+    }
+
+    /* Community Reddit-Style Thread with Nested Replies */
+    .discussion-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .comment-input-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .comment-textarea {
+      width: 100%;
+      min-height: 90px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      resize: vertical;
+    }
+
+    .comment-textarea:focus { border-color: var(--accent); }
+
+    .comment-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-spoiler-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .btn-spoiler-toggle.active {
+      border-color: var(--nsfw);
+      color: var(--nsfw);
+    }
+
+    .comment-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .comment-reply {
+      margin-left: 2.5rem;
+      border-left: 2px solid var(--border-hover);
+      background: rgba(15, 20, 28, 0.6);
+    }
+
+    .vote-rail {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .vote-rail button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .vote-rail button:hover { color: var(--accent); }
+
+    .vote-val {
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .comment-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .comment-header {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .comment-author {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .comment-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .comment-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    .btn-reply {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .btn-reply:hover { color: var(--text); }
+
+    .spoiler-masked {
+      background: #21262d;
+      color: transparent;
+      user-select: none;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      cursor: pointer;
+    }
+
+    .spoiler-masked.revealed {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    /* Recommendations Shelf */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .rec-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .rec-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .rec-poster {
+      height: 180px;
+      background: #111;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .rec-meta {
+      padding: 0.6rem 0.8rem;
+    }
+
+    .rec-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Video Trailer Modal */
+    .trailer-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trailer-box {
+      width: 90%;
+      max-width: 900px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+
+    .trailer-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .trailer-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Character Inspector Modal */
+    .char-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .char-modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 650px;
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .char-modal-img {
+      width: 160px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header>
+    <div class="nav-container">
+      <div class="brand-group">
+        <a href="index.html" class="btn-back">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">arrow_back</span>
+          Back to Hub
+        </a>
+        <a href="index.html" class="brand">AllMyAni<span>.</span></a>
+      </div>
+      <div>
+        <span id="pageTypeBadge" class="badge">Loading...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Big Hero Banner -->
+  <div id="bannerContainer" class="banner-container">
+    <div class="banner-overlay"></div>
+    <button id="trailerBtn" class="banner-play-btn" style="display: none;" onclick="openTrailer()">
+      <span class="material-symbols-outlined">play_circle</span> Watch Official Trailer
+    </button>
+  </div>
+
+  <!-- Main Showcase Container -->
+  <main>
+    
+    <!-- Header Poster + Profile Row -->
+    <section class="entry-header">
+      <div class="poster-box">
+        <img id="posterImg" src="https://placehold.co/280x400/111620/fff?text=Loading..." alt="Poster">
+      </div>
+
+      <div class="header-details">
+        <div class="tag-row" id="tagRow"></div>
+        <h1 id="mainTitle" class="title-primary">Loading title...</h1>
+        <h2 id="subTitle" class="title-sub">Japanese / Native title</h2>
+        
+        <!-- Interactive Progress Tracker Strip -->
+        <div class="tracker-deck">
+          <select id="statusSelect" class="tracker-select" onchange="saveTrackerState()">
+            <option value="CURRENT">Currently Watching</option>
+            <option value="PLANNING">Plan to Watch</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="DROPPED">Dropped</option>
+          </select>
+
+          <div class="progress-stepper">
+            <span id="unitLabel">Progress</span>: 
+            <strong id="currentProgress">0</strong> / <span id="maxProgress">?</span>
+            <button class="step-btn" onclick="stepProgress()">
+              <span class="material-symbols-outlined">add</span>
+            </button>
+          </div>
+
+          <span class="badge" id="scoreBadge" style="color: #ffd166;">★ --</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Workspace -->
+    <div class="entry-workspace">
+      
+      <!-- Left Wiki Info Sidebar -->
+      <aside class="meta-sidebar">
+        <div class="meta-card">
+          <div class="meta-card-title"><span class="material-symbols-outlined">info</span> Media Details</div>
+          <div class="meta-row"><span class="meta-label">Format</span><span class="meta-val" id="metaFormat">--</span></div>
+          <div class="meta-row"><span class="meta-label">Episodes / Ch</span><span class="meta-val" id="metaUnits">--</span></div>
+          <div class="meta-row"><span class="meta-label">Duration</span><span class="meta-val" id="metaDuration">--</span></div>
+          <div class="meta-row"><span class="meta-label">Status</span><span class="meta-val" id="metaStatus">--</span></div>
+          <div class="meta-row"><span class="meta-label">Season / Air</span><span class="meta-val" id="metaSeason">--</span></div>
+          <div class="meta-row"><span class="meta-label">Studio</span><span class="meta-val" id="metaStudio">--</span></div>
+          <div class="meta-row"><span class="meta-label">Source</span><span class="meta-val" id="metaSource">--</span></div>
+          <div class="meta-row"><span class="meta-label">Country</span><span class="meta-val" id="metaCountry">Japan</span></div>
+        </div>
+
+        <!-- Score Distribution -->
+        <div class="meta-card">
+          <div class="meta-card-title"><span class="material-symbols-outlined">analytics</span> Community Ratings</div>
+          <div class="score-dist-row"><span>★ 10</span><div class="score-bar-bg"><div class="score-bar-fill" style="width: 72%;"></div></div><span>72%</span></div>
+          <div class="score-dist-row"><span>★ 8</span><div class="score-bar-bg"><div class="score-bar-fill" style="width: 18%;"></div></div><span>18%</span></div>
+          <div class="score-dist-row"><span>★ 6</span><div class="score-bar-bg"><div class="score-bar-fill" style="width: 7%;"></div></div><span>7%</span></div>
+          <div class="score-dist-row"><span>★ 4</span><div class="score-bar-bg"><div class="score-bar-fill" style="width: 3%;"></div></div><span>3%</span></div>
+        </div>
+
+        <!-- Outbound Portals & Web Directory Integration -->
+        <div class="meta-card">
+          <div class="meta-card-title"><span class="material-symbols-outlined">travel_explore</span> Official Streamers & Portals</div>
+          <div class="portal-chip-list" id="portalList">
+            <a href="#" class="portal-link" target="_blank"><span>Crunchyroll Stream</span><span class="material-symbols-outlined" style="font-size: 1rem;">open_in_new</span></a>
+            <a href="#" class="portal-link" target="_blank"><span>MangaDex Scans</span><span class="material-symbols-outlined" style="font-size: 1rem;">open_in_new</span></a>
+            <a href="#" class="portal-link" target="_blank"><span>AniList Entry</span><span class="material-symbols-outlined" style="font-size: 1rem;">open_in_new</span></a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Wiki & Community Stream -->
+      <section class="content-stage">
+        
+        <!-- Tabs -->
+        <div class="nav-tabs">
+          <button class="nav-tab-btn active" onclick="switchTab('wikiTab')">
+            <span class="material-symbols-outlined">menu_book</span> Overview & Lore
+          </button>
+          <button class="nav-tab-btn" onclick="switchTab('discussionTab')">
+            <span class="material-symbols-outlined">forum</span> Discussion Hub
+          </button>
+          <button class="nav-tab-btn" onclick="switchTab('episodesTab')">
+            <span class="material-symbols-outlined">view_module</span> Episodes & Chapters
+          </button>
+          <button class="nav-tab-btn" onclick="switchTab('journalTab')">
+            <span class="material-symbols-outlined">edit_note</span> Private Journal
+          </button>
+        </div>
+
+        <!-- 1. Overview Tab -->
+        <div id="wikiTab" style="display: flex; flex-direction: column; gap: 2rem;">
+          <div>
+            <h3 class="section-title"><span class="material-symbols-outlined">article</span> Synopsis</h3>
+            <p id="synopsisText" class="synopsis-text">Fetching synopsis from AniList...</p>
+          </div>
+
+          <!-- Franchise Relations -->
+          <div id="relationsSection" style="display: none;">
+            <h3 class="section-title"><span class="material-symbols-outlined">account_tree</span> Franchise & Relations</h3>
+            <div id="relationGrid" class="relation-grid"></div>
+          </div>
+
+          <!-- Characters & Japanese Cast -->
+          <div>
+            <h3 class="section-title"><span class="material-symbols-outlined">groups</span> Characters & Japanese Voice Cast (Seiyuu)</h3>
+            <div id="castGrid" class="cast-grid"></div>
+          </div>
+
+          <!-- Soundtrack & Music Themes Deck -->
+          <div>
+            <h3 class="section-title"><span class="material-symbols-outlined">music_note</span> Soundtrack & Theme Songs</h3>
+            <div class="soundtrack-wrap">
+              <div class="soundtrack-box">
+                <strong style="font-size: 0.85rem; color: var(--accent);">OPENING THEMES</strong>
+                <div class="song-list" id="opSongList">
+                  <div class="song-item"><span class="material-symbols-outlined" style="color: var(--accent);">play_circle</span> "Yuusha" by YOASOBI</div>
+                  <div class="song-item"><span class="material-symbols-outlined" style="color: var(--accent);">play_circle</span> "Haru" by Yorushika</div>
+                </div>
+              </div>
+              <div class="soundtrack-box">
+                <strong style="font-size: 0.85rem; color: var(--accent-blue);">ENDING THEMES</strong>
+                <div class="song-list" id="edSongList">
+                  <div class="song-item"><span class="material-symbols-outlined" style="color: var(--accent-blue);">play_circle</span> "Anytime Anywhere" by milet</div>
+                  <div class="song-item"><span class="material-symbols-outlined" style="color: var(--accent-blue);">play_circle</span> "bliss" by milet</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Production Staff -->
+          <div>
+            <h3 class="section-title"><span class="material-symbols-outlined">badge</span> Production Staff</h3>
+            <div id="staffGrid" class="staff-grid"></div>
+          </div>
+
+          <!-- Recommendations -->
+          <div>
+            <h3 class="section-title"><span class="material-symbols-outlined">recommend</span> Fans Also Liked</h3>
+            <div id="recGrid" class="rec-grid"></div>
+          </div>
+        </div>
+
+        <!-- 2. Episodes / Chapter Selector Tab -->
+        <div id="episodesTab" style="display: none; flex-direction: column; gap: 1.5rem;">
+          <h3 class="section-title"><span class="material-symbols-outlined">checklist</span> Episode Checkmarks</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Click any episode to update your watched progress instantly.</p>
+          <div id="episodeGrid" class="episode-grid"></div>
+        </div>
+
+        <!-- 3. Community Discussion Tab (Reddit-style with Nested Replies) -->
+        <div id="discussionTab" style="display: none;" class="discussion-wrap">
+          <div class="comment-input-box">
+            <textarea id="commentInput" class="comment-textarea" placeholder="Share your theories, reactions, or lore questions..."></textarea>
+            <div class="comment-tools">
+              <button id="spoilerBtn" class="btn-spoiler-toggle" onclick="toggleSpoilerMask()">Mark as Spoiler</button>
+              <button class="btn-primary" onclick="postComment()">
+                <span class="material-symbols-outlined">send</span> Post Response
+              </button>
+            </div>
+          </div>
+
+          <div id="commentsFeed" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Main Thread Comment -->
+            <article class="comment-item">
+              <div class="vote-rail">
+                <button onclick="voteComment(this, 1)"><span class="material-symbols-outlined">arrow_upward</span></button>
+                <span class="vote-val">241</span>
+                <button onclick="voteComment(this, -1)"><span class="material-symbols-outlined">arrow_downward</span></button>
+              </div>
+              <div class="comment-body">
+                <div class="comment-header">
+                  <span class="comment-author">u/SakugaEnthusiast</span> • <span>2 hours ago</span>
+                </div>
+                <p class="comment-text">The lighting direction in the third act genuinely rivals theatrical movies. The secondary key animators brought incredible fluidity to the character movements.</p>
+                <div class="comment-actions">
+                  <button class="btn-reply" onclick="replyPrompt(this)"><span class="material-symbols-outlined" style="font-size: 1rem;">reply</span> Reply</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Nested Reply Example -->
+            <article class="comment-item comment-reply">
+              <div class="vote-rail">
+                <button onclick="voteComment(this, 1)"><span class="material-symbols-outlined">arrow_upward</span></button>
+                <span class="vote-val">48</span>
+                <button onclick="voteComment(this, -1)"><span class="material-symbols-outlined">arrow_downward</span></button>
+              </div>
+              <div class="comment-body">
+                <div class="comment-header">
+                  <span class="comment-author">u/DirectorBuff</span> • <span>1 hour ago</span>
+                </div>
+                <p class="comment-text">Completely agree! Keiichiro Saito confirmed in the studio log that episode 26 had over 300 unique genga cuts.</p>
+                <div class="comment-actions">
+                  <button class="btn-reply" onclick="replyPrompt(this)"><span class="material-symbols-outlined" style="font-size: 1rem;">reply</span> Reply</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- 4. Private Journal & Review Tab -->
+        <div id="journalTab" style="display: none;" class="journal-box">
+          <h3 class="section-title"><span class="material-symbols-outlined">rate_review</span> Your Private Review & Journal</h3>
+          <div class="journal-slider-row">
+            <span>Your Personal Score:</span>
+            <input type="range" id="scoreRange" min="1" max="10" step="1" value="8" class="journal-slider" oninput="document.getElementById('scoreDisplay').textContent = this.value + '/10'">
+            <strong id="scoreDisplay" style="color: var(--accent); font-size: 1.1rem;">8/10</strong>
+          </div>
+          <textarea id="journalNotes" class="journal-textarea" placeholder="Keep your private thoughts, favourite episodes, quotes, or re-watch notes stored safely here..."></textarea>
+          <div style="display: flex; justify-content: flex-end;">
+            <button class="btn-primary" onclick="saveJournal()"><span class="material-symbols-outlined">save</span> Save Journal</button>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Video Trailer Modal -->
+  <div id="trailerModal" class="trailer-modal" onclick="closeTrailer(event)">
+    <div class="trailer-box">
+      <button class="trailer-close" onclick="closeTrailerDirect()">✕</button>
+      <iframe id="trailerIframe" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Character Inspector Modal -->
+  <div id="charModal" class="char-modal" onclick="closeCharModal(event)">
+    <div class="char-modal-box">
+      <button class="trailer-close" onclick="document.getElementById('charModal').style.display='none'">✕</button>
+      <img id="charModalImg" class="char-modal-img" src="" alt="Character">
+      <div>
+        <h2 id="charModalName" style="font-size: 1.3rem;">Character Name</h2>
+        <span id="charModalRole" class="badge" style="margin: 0.4rem 0 0.8rem;">MAIN</span>
+        <p id="charModalDesc" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">Character details and voice role breakdown.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ANILIST_URL = 'https://graphql.anilist.co';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const mediaId = parseInt(urlParams.get('id'), 10) || 154587;
+
+    let mediaData = null;
+    let userLibrary = JSON.parse(localStorage.getItem('allmyani_stash')) || {};
+    let isSpoiler = false;
+
+    // Full GraphQL Query
+    const entryQuery = `
+      query ($id: Int) {
+        Media(id: $id) {
+          id
+          title { english romaji native }
+          type
+          format
+          status
+          description(asHtml: false)
+          episodes
+          chapters
+          duration
+          season
+          seasonYear
+          source
+          countryOfOrigin
+          averageScore
+          popularity
+          favourites
+          genres
+          isAdult
+          bannerImage
+          coverImage { extraLarge }
+          trailer { id site }
+          studios(isMain: true) { nodes { name } }
+          relations {
+            edges {
+              relationType
+              node {
+                id
+                title { english romaji }
+                coverImage { large }
+              }
+            }
+          }
+          characters(sort: ROLE, perPage: 8) {
+            edges {
+              role
+              node {
+                name { full }
+                image { large }
+              }
+              voiceActors(language: JAPANESE) {
+                name { full }
+                image { medium }
+              }
+            }
+          }
+          staff(perPage: 6) {
+            edges {
+              role
+              node {
+                name { full }
+                image { medium }
+              }
+            }
+          }
+          recommendations(perPage: 5, sort: RATING_DESC) {
+            nodes {
+              mediaRecommendation {
+                id
+                title { english romaji }
+                coverImage { large }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    async function loadEntryData() {
+      try {
+        const response = await fetch(ANILIST_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ query: entryQuery, variables: { id: mediaId } })
+        });
+        const result = await response.json();
+        mediaData = result.data.Media;
+        renderEntry();
+      } catch (err) {
+        console.error('Failed to load entry:', err);
+      }
+    }
+
+    function renderEntry() {
+      if (!mediaData) return;
+
+      const title = mediaData.title.english || mediaData.title.romaji;
+      document.title = `${title} - AllMyAni`;
+
+      document.getElementById('mainTitle').textContent = title;
+      document.getElementById('subTitle').textContent = `${mediaData.title.romaji} • ${mediaData.title.native || ''}`;
+      document.getElementById('pageTypeBadge').textContent = mediaData.type;
+
+      const banner = mediaData.bannerImage || mediaData.coverImage.extraLarge;
+      if (banner) {
+        document.getElementById('bannerContainer').style.backgroundImage = `url('${banner}')`;
+      }
+      document.getElementById('posterImg').src = mediaData.coverImage.extraLarge;
+
+      // Trailer
+      if (mediaData.trailer && mediaData.trailer.site === 'youtube') {
+        document.getElementById('trailerBtn').style.display = 'flex';
+      }
+
+      // Badges
+      const tagRow = document.getElementById('tagRow');
+      tagRow.innerHTML = '';
+      if (mediaData.isAdult) {
+        tagRow.innerHTML += `<span class="badge" style="color: var(--nsfw); border: 1px solid var(--nsfw);">18+ Restricted</span>`;
+      }
+      mediaData.genres.forEach(g => {
+        tagRow.innerHTML += `<span class="badge">${g}</span>`;
+      });
+
+      // Score
+      document.getElementById('scoreBadge').textContent = mediaData.averageScore ? `★ ${(mediaData.averageScore / 10).toFixed(1)} / 10` : '★ N/A';
+
+      // Metadata Side
+      document.getElementById('metaFormat').textContent = mediaData.format || '--';
+      const maxUnits = mediaData.type === 'ANIME' ? mediaData.episodes : mediaData.chapters;
+      document.getElementById('metaUnits').textContent = maxUnits || 'Ongoing';
+      document.getElementById('maxProgress').textContent = maxUnits || '?';
+      document.getElementById('unitLabel').textContent = mediaData.type === 'ANIME' ? 'Episodes' : 'Chapters';
+      document.getElementById('metaDuration').textContent = mediaData.duration ? `${mediaData.duration} mins` : '--';
+      document.getElementById('metaStatus').textContent = mediaData.status ? mediaData.status.replace('_', ' ') : '--';
+      document.getElementById('metaSeason').textContent = mediaData.season ? `${mediaData.season} ${mediaData.seasonYear || ''}` : '--';
+      document.getElementById('metaStudio').textContent = mediaData.studios?.nodes[0]?.name || '--';
+      document.getElementById('metaSource').textContent = mediaData.source ? mediaData.source.replace('_', ' ') : '--';
+      document.getElementById('metaCountry').textContent = mediaData.countryOfOrigin || 'Japan';
+
+      // Synopsis
+      document.getElementById('synopsisText').textContent = mediaData.description ? mediaData.description.replace(/<[^>]*>?/gm, '') : 'No synopsis available.';
+
+      // Relations
+      const relEdges = mediaData.relations?.edges || [];
+      if (relEdges.length > 0) {
+        document.getElementById('relationsSection').style.display = 'block';
+        const relGrid = document.getElementById('relationGrid');
+        relGrid.innerHTML = '';
+        relEdges.forEach(e => {
+          const rTitle = e.node.title.english || e.node.title.romaji;
+          relGrid.innerHTML += `
+            <div class="relation-card" onclick="window.location.href='entry.html?id=${e.node.id}'">
+              <img class="relation-poster" src="${e.node.coverImage.large}" alt="${rTitle}">
+              <div class="relation-meta">
+                <div class="relation-type">${e.relationType.replace('_', ' ')}</div>
+                <div class="relation-title" title="${rTitle}">${rTitle}</div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Cast Grid (Click opens Character Modal)
+      const castGrid = document.getElementById('castGrid');
+      castGrid.innerHTML = '';
+      (mediaData.characters?.edges || []).forEach(edge => {
+        const char = edge.node;
+        const va = edge.voiceActors[0];
+        castGrid.innerHTML += `
+          <div class="cast-card" onclick="inspectChar('${char.name.full}', '${char.image.large}', '${edge.role}')">
+            <div class="person-side">
+              <img class="person-thumb" src="${char.image.large}" alt="${char.name.full}">
+              <div class="person-info">
+                <span class="person-name">${char.name.full}</span>
+                <span class="person-role">${edge.role}</span>
+              </div>
+            </div>
+            ${va ? `
+              <div class="person-side right">
+                <img class="person-thumb" src="${va.image.medium}" alt="${va.name.full}">
+                <div class="person-info">
+                  <span class="person-name">${va.name.full}</span>
+                  <span class="person-role">Japanese VA</span>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+
+      // Staff Grid
+      const staffGrid = document.getElementById('staffGrid');
+      staffGrid.innerHTML = '';
+      (mediaData.staff?.edges || []).forEach(edge => {
+        staffGrid.innerHTML += `
+          <div class="staff-card">
+            <img class="staff-thumb" src="${edge.node.image.medium}" alt="${edge.node.name.full}">
+            <div class="person-info">
+              <span class="person-name">${edge.node.name.full}</span>
+              <span class="person-role">${edge.role}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      // Recommendations
+      const recGrid = document.getElementById('recGrid');
+      recGrid.innerHTML = '';
+      (mediaData.recommendations?.nodes || []).forEach(n => {
+        const rec = n.mediaRecommendation;
+        if (!rec) return;
+        const rTitle = rec.title.english || rec.title.romaji;
+        recGrid.innerHTML += `
+          <div class="rec-card" onclick="window.location.href='entry.html?id=${rec.id}'">
+            <img class="rec-poster" src="${rec.coverImage.large}" alt="${rTitle}">
+            <div class="rec-meta">
+              <div class="rec-title" title="${rTitle}">${rTitle}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      renderEpisodeGrid(maxUnits || 12);
+
+      // Load Saved Stash Progress
+      const savedCount = userLibrary[mediaId] || 0;
+      document.getElementById('currentProgress').textContent = savedCount;
+      updateEpisodeGridVisuals(savedCount);
+
+      // Load Saved Journal
+      const savedJournal = JSON.parse(localStorage.getItem(`allmyani_journal_${mediaId}`)) || {};
+      if (savedJournal.notes) document.getElementById('journalNotes').value = savedJournal.notes;
+      if (savedJournal.score) {
+        document.getElementById('scoreRange').value = savedJournal.score;
+        document.getElementById('scoreDisplay').textContent = `${savedJournal.score}/10`;
+      }
+    }
+
+    function renderEpisodeGrid(total) {
+      const grid = document.getElementById('episodeGrid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= total; i++) {
+        grid.innerHTML += `<div class="ep-badge" id="ep-btn-${i}" onclick="setEpisodeProgress(${i})">Ep ${i}</div>`;
+      }
+    }
+
+    function updateEpisodeGridVisuals(count) {
+      document.querySelectorAll('.ep-badge').forEach((el, index) => {
+        el.classList.toggle('watched', index + 1 <= count);
+      });
+    }
+
+    function setEpisodeProgress(val) {
+      document.getElementById('currentProgress').textContent = val;
+      userLibrary[mediaId] = val;
+      localStorage.setItem('allmyani_stash', JSON.stringify(userLibrary));
+      updateEpisodeGridVisuals(val);
+    }
+
+    function stepProgress() {
+      let cur = parseInt(document.getElementById('currentProgress').textContent, 10);
+      cur++;
+      setEpisodeProgress(cur);
+    }
+
+    function saveTrackerState() {
+      const status = document.getElementById('statusSelect').value;
+      let statusMap = JSON.parse(localStorage.getItem('allmyani_status')) || {};
+      statusMap[mediaId] = status;
+      localStorage.setItem('allmyani_status', JSON.stringify(statusMap));
+    }
+
+    function saveJournal() {
+      const journal = {
+        score: document.getElementById('scoreRange').value,
+        notes: document.getElementById('journalNotes').value
+      };
+      localStorage.setItem(`allmyani_journal_${mediaId}`, JSON.stringify(journal));
+      alert('Your private journal and personal score have been saved!');
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      ['wikiTab', 'discussionTab', 'episodesTab', 'journalTab'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = id === tabId ? 'flex' : 'none';
+      });
+    }
+
+    function toggleSpoilerMask() {
+      isSpoiler = !isSpoiler;
+      const btn = document.getElementById('spoilerBtn');
+      btn.classList.toggle('active', isSpoiler);
+      btn.textContent = isSpoiler ? 'Spoiler Tag ACTIVE' : 'Mark as Spoiler';
+    }
+
+    function postComment() {
+      const input = document.getElementById('commentInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const displayText = isSpoiler 
+        ? `<span class="spoiler-masked" onclick="this.classList.toggle('revealed')">${text}</span>` 
+        : text;
+
+      const feed = document.getElementById('commentsFeed');
+      feed.insertAdjacentHTML('afterbegin', `
+        <article class="comment-item">
+          <div class="vote-rail">
+            <button onclick="voteComment(this, 1)"><span class="material-symbols-outlined">arrow_upward</span></button>
+            <span class="vote-val">1</span>
+            <button onclick="voteComment(this, -1)"><span class="material-symbols-outlined">arrow_downward</span></button>
+          </div>
+          <div class="comment-body">
+            <div class="comment-header">
+              <span class="comment-author">u/Qwideyed</span> • <span>Just now</span>
+            </div>
+            <p class="comment-text">${displayText}</p>
+            <div class="comment-actions">
+              <button class="btn-reply" onclick="replyPrompt(this)"><span class="material-symbols-outlined" style="font-size: 1rem;">reply</span> Reply</button>
+            </div>
+          </div>
+        </article>
+      `);
+      input.value = '';
+      if (isSpoiler) toggleSpoilerMask();
+    }
+
+    function replyPrompt(btn) {
+      const replyText = prompt('Enter your reply:');
+      if (!replyText) return;
+      const parentComment = btn.closest('.comment-item');
+      parentComment.insertAdjacentHTML('afterend', `
+        <article class="comment-item comment-reply">
+          <div class="vote-rail">
+            <button onclick="voteComment(this, 1)"><span class="material-symbols-outlined">arrow_upward</span></button>
+            <span class="vote-val">1</span>
+            <button onclick="voteComment(this, -1)"><span class="material-symbols-outlined">arrow_downward</span></button>
+          </div>
+          <div class="comment-body">
+            <div class="comment-header">
+              <span class="comment-author">u/Qwideyed</span> • <span>Just now</span>
+            </div>
+            <p class="comment-text">${replyText}</p>
+          </div>
+        </article>
+      `);
+    }
+
+    function voteComment(btn, delta) {
+      const counter = btn.parentElement.querySelector('.vote-val');
+      counter.textContent = parseInt(counter.textContent, 10) + delta;
+      btn.style.color = delta > 0 ? 'var(--accent)' : 'var(--accent-blue)';
+    }
+
+    // Modal Handlers
+    function openTrailer() {
+      if (mediaData?.trailer?.id) {
+        document.getElementById('trailerIframe').src = `https://www.youtube.com/embed/${mediaData.trailer.id}?autoplay=1`;
+        document.getElementById('trailerModal').style.display = 'flex';
+      }
+    }
+    function closeTrailerDirect() {
+      document.getElementById('trailerIframe').src = '';
+      document.getElementById('trailerModal').style.display = 'none';
+    }
+    function closeTrailer(e) {
+      if (e.target.id === 'trailerModal') closeTrailerDirect();
+    }
+
+    function inspectChar(name, img, role) {
+      document.getElementById('charModalName').textContent = name;
+      document.getElementById('charModalImg').src = img;
+      document.getElementById('charModalRole').textContent = role;
+      document.getElementById('charModal').style.display = 'flex';
+    }
+    function closeCharModal(e) {
+      if (e.target.id === 'charModal') document.getElementById('charModal').style.display = 'none';
+    }
+
+    // Init
+    loadEntryData();
+  </script>
+</body>
+</html>
