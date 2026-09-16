@@ -10,19 +10,18 @@
 
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: rgba(20, 28, 46, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
+      --bg: #070a12;
+      --card-bg: rgba(18, 25, 41, 0.72);
+      --card-border: rgba(255, 255, 255, 0.07);
       --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.25);
+      --accent-glow: rgba(56, 189, 248, 0.28);
       --text: #f8fafc;
       --muted: #94a3b8;
-      --bubble-bg: #192237;
-      --bubble-hover: #263552;
-      --danger: #f43f5e;
-      --success: #34d399;
-      --radius: 18px;
-      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --bubble-bg: #151e33;
+      --bubble-hover: #223050;
+      --danger: #fb7185;
+      --radius: 20px;
+      --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
@@ -34,106 +33,148 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 1rem 5rem 1rem;
+      padding: 2.2rem 1.25rem 6rem;
       position: relative;
     }
 
     body::before {
       content: '';
       position: fixed;
-      top: -120px;
+      top: -160px;
       left: 50%;
       transform: translateX(-50%);
-      width: 700px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.12), transparent 70%);
+      width: 750px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.14), transparent 70%);
       z-index: 0;
       pointer-events: none;
     }
 
     .container {
       width: 100%;
-      max-width: 1050px;
+      max-width: 1100px;
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.8rem;
     }
 
-    /* --- Navbar & Actions --- */
+    /* --- Header Bar --- */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding-bottom: 1.25rem;
+      padding-bottom: 1.4rem;
       border-bottom: 1px solid var(--card-border);
+      position: relative;
     }
 
-    .logo-box {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.75rem;
     }
 
-    .logo-box h1 {
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.05));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .brand h1 {
       font-size: 1.55rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.4px;
     }
 
-    .logo-box span { color: var(--accent); }
+    .brand h1 span { color: var(--accent); }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
-      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--accent);
-      color: #04101e;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px var(--accent-glow);
-      transition: var(--transition);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(56, 189, 248, 0.4);
-    }
-
-    .btn-secondary {
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: var(--bubble-bg);
       border: 1px solid var(--card-border);
       color: var(--text);
-      padding: 0.55rem 0.95rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.4rem;
+      justify-content: center;
+      cursor: pointer;
       transition: var(--transition);
     }
 
-    .btn-secondary:hover {
+    .icon-button:hover {
       background: var(--bubble-hover);
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--accent-glow);
     }
 
-    /* --- Filter & Controls Toolbar --- */
+    /* --- Settings Gear Hover Dropdown --- */
+    .settings-wrapper {
+      position: relative;
+    }
+
+    .settings-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 200px;
+      background: #111827;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 0.5rem;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: var(--transition);
+      z-index: 60;
+    }
+
+    .settings-wrapper:hover .settings-dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dropdown-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 0.85rem;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 500;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .dropdown-btn:hover {
+      background: var(--bubble-hover);
+      color: var(--accent);
+    }
+
+    /* --- Toolbar: Filters & 18+ Toggle --- */
     .toolbar {
       display: flex;
       justify-content: space-between;
@@ -142,18 +183,18 @@
       gap: 1rem;
     }
 
-    .filter-bar {
+    .filter-pills {
       display: flex;
       gap: 0.5rem;
       overflow-x: auto;
       padding-bottom: 0.25rem;
     }
 
-    .filter-btn {
+    .pill-btn {
       background: var(--bubble-bg);
       border: 1px solid var(--card-border);
       color: var(--muted);
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.1rem;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 500;
@@ -162,44 +203,46 @@
       transition: var(--transition);
     }
 
-    .filter-btn:hover {
+    .pill-btn:hover {
       background: var(--bubble-hover);
       color: var(--text);
     }
 
-    .filter-btn.active {
+    .pill-btn.active {
       background: var(--accent);
       color: #04101e;
-      font-weight: 600;
+      font-weight: 700;
       border-color: var(--accent);
+      box-shadow: 0 2px 12px var(--accent-glow);
     }
 
-    .toggle-wrap {
+    .blur-control {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--muted);
+      cursor: pointer;
       user-select: none;
     }
 
-    .toggle-wrap input {
-      cursor: pointer;
+    .blur-control input {
       accent-color: var(--accent);
       width: 16px;
       height: 16px;
+      cursor: pointer;
     }
 
-    /* --- Media Grid & Cards --- */
+    /* --- Media Grid & Upgraded Description Cards --- */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
-      gap: 1.25rem;
-      margin-top: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
     }
 
     .card {
       background: var(--card-bg);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
       overflow: hidden;
@@ -210,657 +253,652 @@
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
       border-color: rgba(56, 189, 248, 0.35);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
     }
 
-    .poster-container {
-      width: 100%;
-      height: 255px;
-      background: #111728;
+    .card-top {
+      display: flex;
+      height: 170px;
       position: relative;
+      background: #0f1627;
       overflow: hidden;
     }
 
-    .poster-img {
-      width: 100%;
+    .card-thumb {
+      width: 120px;
       height: 100%;
       object-fit: cover;
-      transition: filter 0.3s ease, transform 0.3s ease;
+      flex-shrink: 0;
+      transition: 0.3s ease;
     }
 
-    .blur-nsfw {
-      filter: blur(18px) brightness(0.8);
-      transform: scale(1.08);
-    }
-
-    .blur-nsfw:hover {
-      filter: blur(0) brightness(1);
-      transform: scale(1);
-    }
-
-    .category-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(10, 15, 26, 0.85);
-      backdrop-filter: blur(8px);
-      font-size: 0.7rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .card-body {
-      padding: 0.95rem;
+    .card-top-info {
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
+      justify-content: space-between;
       flex: 1;
+      overflow: hidden;
     }
 
     .card-title {
-      font-size: 0.92rem;
-      font-weight: 600;
+      font-size: 1.02rem;
+      font-weight: 700;
       line-height: 1.35;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      min-height: 2.5rem;
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .tag.accent {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .card-body {
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .card-description {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
-      color: var(--muted);
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
       margin-top: auto;
-      padding-top: 0.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.82rem;
+      color: var(--muted);
     }
 
-    .score-badge {
+    .rating {
       display: inline-flex;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.25rem;
       color: #facc15;
-      font-weight: 600;
-      font-size: 0.82rem;
+      font-weight: 700;
     }
 
-    .icon-btn-danger {
+    .delete-action {
       background: transparent;
       border: none;
       color: var(--muted);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      padding: 0.2rem;
-      border-radius: 6px;
+      padding: 0.3rem;
+      border-radius: 8px;
       transition: var(--transition);
     }
 
-    .icon-btn-danger:hover {
+    .delete-action:hover {
       color: var(--danger);
-      background: rgba(244, 63, 94, 0.12);
+      background: rgba(251, 113, 133, 0.12);
+    }
+
+    .blur-nsfw {
+      filter: blur(16px) brightness(0.8);
+    }
+
+    .blur-nsfw:hover {
+      filter: blur(0) brightness(1);
     }
 
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 5rem 1rem;
+      padding: 6rem 1rem;
       color: var(--muted);
     }
 
-    /* --- Modals & Overlays --- */
-    .modal-overlay {
+    /* --- Search & Discover Pop-up Overlay --- */
+    .overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 1.25rem;
+      padding: 4rem 1.25rem 2rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.22s ease;
       z-index: 100;
     }
 
-    .modal-overlay.active {
+    .overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .modal-card {
-      background: #111827;
+    .search-modal {
+      background: #101726;
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      padding: 2rem;
-      max-width: 480px;
+      padding: 1.5rem;
+      max-width: 620px;
       width: 100%;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+      transform: translateY(-15px);
+      transition: transform 0.22s ease;
       display: flex;
       flex-direction: column;
-      gap: 1.15rem;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-      transform: scale(0.96);
-      transition: transform 0.25s ease;
+      gap: 1rem;
+      max-height: 80vh;
     }
 
-    .modal-overlay.active .modal-card {
-      transform: scale(1);
+    .overlay.active .search-modal {
+      transform: translateY(0);
     }
 
-    .form-group {
+    .search-input-box {
       display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      position: relative;
-    }
-
-    .form-group label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .form-input, .form-select {
+      align-items: center;
       background: var(--bubble-bg);
       border: 1px solid var(--card-border);
-      color: var(--text);
-      padding: 0.7rem 0.9rem;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      outline: none;
+      border-radius: 14px;
+      padding: 0.4rem 0.85rem;
+      gap: 0.6rem;
       transition: var(--transition);
-      width: 100%;
     }
 
-    .form-input:focus, .form-select:focus {
+    .search-input-box:focus-within {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
     }
 
-    /* Live API Search Suggestions Dropdown */
-    .autocomplete-list {
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 0;
-      right: 0;
-      background: #162035;
+    .search-input-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      padding: 0.5rem 0;
+    }
+
+    .search-type-select {
+      background: #0d1322;
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      max-height: 220px;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .results-list {
       overflow-y: auto;
-      z-index: 10;
-      display: none;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding-right: 0.3rem;
     }
 
-    .autocomplete-list.visible {
-      display: block;
-    }
-
-    .suggestion-row {
+    .result-row {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.6rem 0.75rem;
+      gap: 0.9rem;
+      padding: 0.65rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
       cursor: pointer;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      transition: background 0.15s;
+      transition: var(--transition);
     }
 
-    .suggestion-row:hover {
+    .result-row:hover {
       background: var(--bubble-hover);
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateX(4px);
     }
 
-    .suggestion-thumb {
-      width: 32px;
-      height: 44px;
+    .result-thumb {
+      width: 48px;
+      height: 64px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 8px;
       flex-shrink: 0;
-      background: #090d16;
+      background: #070a12;
     }
 
-    .suggestion-info h4 {
-      font-size: 0.85rem;
+    .result-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .result-info h4 {
+      font-size: 0.94rem;
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 320px;
     }
 
-    .suggestion-info p {
-      font-size: 0.75rem;
+    .result-info p {
+      font-size: 0.78rem;
       color: var(--muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: 0.2rem;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-    }
-
-    .modal-actions {
+    .save-badge {
       display: flex;
-      justify-content: flex-end;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 600;
+      flex-shrink: 0;
     }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- Header -->
     <header>
-      <div class="logo-box">
-        <span class="material-symbols-rounded" style="font-size: 2.2rem; color: var(--accent);">collections_bookmark</span>
-        <h1>Omni<span>Track</span></h1>
+      <div class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-rounded">movie_filter</span>
+        </div>
+        <h1>Omni<span>Vault</span></h1>
       </div>
 
       <div class="header-actions">
-        <!-- Import / Export Controls -->
-        <button class="btn-secondary" id="exportJsonBtn" title="Export Library JSON">
-          <span class="material-symbols-rounded" style="font-size: 1.1rem;">download</span> Export
+        <!-- Search Trigger Icon Button -->
+        <button class="icon-button" id="openSearchBtn" title="Search & Add Media">
+          <span class="material-symbols-rounded">search</span>
         </button>
-        <button class="btn-secondary" onclick="document.getElementById('importFileInput').click()" title="Import Library JSON">
-          <span class="material-symbols-rounded" style="font-size: 1.1rem;">upload</span> Import
-        </button>
-        <input type="file" id="importFileInput" accept=".json" style="display: none;" />
 
-        <button class="btn" id="openAddModal">
-          <span class="material-symbols-rounded">add</span> Add Entry
-        </button>
+        <!-- Gear Settings Dropdown on Hover -->
+        <div class="settings-wrapper">
+          <button class="icon-button" title="Vault Settings">
+            <span class="material-symbols-rounded">settings</span>
+          </button>
+          <div class="settings-dropdown">
+            <button class="dropdown-btn" id="exportBtn">
+              <span class="material-symbols-rounded" style="color: var(--accent); font-size: 1.1rem;">download</span>
+              Export Backup
+            </button>
+            <button class="dropdown-btn" onclick="document.getElementById('fileInput').click()">
+              <span class="material-symbols-rounded" style="color: #34d399; font-size: 1.1rem;">upload</span>
+              Import Backup
+            </button>
+            <input type="file" id="fileInput" accept=".json" style="display: none;" />
+          </div>
+        </div>
       </div>
     </header>
 
-    <!-- Toolbar: Filters + 18+ Toggle -->
+    <!-- Toolbar Filters -->
     <div class="toolbar">
-      <div class="filter-bar">
-        <button class="filter-btn active" data-category="all">All</button>
-        <button class="filter-btn" data-category="anime">Anime</button>
-        <button class="filter-btn" data-category="manga">Manga</button>
-        <button class="filter-btn" data-category="hentai">Hentai (18+)</button>
-        <button class="filter-btn" data-category="movie">Movies</button>
-        <button class="filter-btn" data-category="show">Shows</button>
+      <div class="filter-pills">
+        <button class="pill-btn active" data-filter="all">All</button>
+        <button class="pill-btn" data-filter="anime">Anime</button>
+        <button class="pill-btn" data-filter="manga">Manga</button>
+        <button class="pill-btn" data-filter="hentai">Hentai (18+)</button>
+        <button class="pill-btn" data-filter="movie">Movies</button>
+        <button class="pill-btn" data-filter="show">Shows</button>
       </div>
 
-      <div class="toggle-wrap">
-        <input type="checkbox" id="nsfwBlurToggle" checked />
-        <label for="nsfwBlurToggle">Blur 18+ Artwork</label>
-      </div>
+      <label class="blur-control">
+        <input type="checkbox" id="nsfwBlur" checked />
+        <span>Blur 18+ Covers</span>
+      </label>
     </div>
 
-    <!-- Main Grid -->
-    <main class="grid" id="mediaGrid"></main>
+    <!-- Media Cards Grid -->
+    <main class="grid" id="cardsGrid"></main>
   </div>
 
-  <!-- Add Item Modal with Live API Autocomplete -->
-  <div class="modal-overlay" id="addModal">
-    <div class="modal-card">
+  <!-- Search Pop-up Overlay -->
+  <div class="overlay" id="searchOverlay">
+    <div class="search-modal">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 style="font-size: 1.25rem;">New Library Entry</h2>
-        <span id="apiSpinner" class="material-symbols-rounded" style="display: none; animation: spin 1s linear infinite; color: var(--accent);">sync</span>
+        <h3 style="font-size: 1.15rem; font-weight: 700;">Find & Add Media</h3>
+        <button class="icon-button" id="closeSearchBtn" style="width: 34px; height: 34px;">
+          <span class="material-symbols-rounded" style="font-size: 1.2rem;">close</span>
+        </button>
       </div>
 
-      <div class="form-group">
-        <label>Media Category</label>
-        <select id="mediaTypeSelect" class="form-select">
+      <div class="search-input-box">
+        <span class="material-symbols-rounded" style="color: var(--muted);" id="searchIndicator">search</span>
+        <input type="text" id="searchInput" placeholder="Type title (e.g. Solo Leveling, Bleach, Inception)..." autocomplete="off" />
+        <select id="apiCategory" class="search-type-select">
           <option value="anime">Anime</option>
           <option value="manga">Manga</option>
           <option value="hentai">Hentai (18+)</option>
-          <option value="movie">Movie</option>
-          <option value="show">TV Show</option>
+          <option value="movie">Movies</option>
+          <option value="show">TV Shows</option>
         </select>
       </div>
 
-      <div class="form-group">
-        <label>Search Title (Type to fetch covers & info)</label>
-        <input type="text" id="titleInput" class="form-input" placeholder="e.g. Frieren, Berserk, Breaking Bad..." autocomplete="off" />
-        <div id="autocompleteResults" class="autocomplete-list"></div>
-      </div>
-
-      <div class="form-group">
-        <label>Poster Image URL</label>
-        <input type="url" id="coverUrlInput" class="form-input" placeholder="https://..." />
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Status</label>
-          <select id="statusSelect" class="form-select">
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-            <option value="Plan to Watch">Plan to Watch</option>
-            <option value="On Hold">On Hold</option>
-          </select>
+      <div class="results-list" id="searchResults">
+        <div style="text-align: center; color: var(--muted); padding: 2rem 0; font-size: 0.88rem;">
+          Type in the box above to pull live results directly into your vault.
         </div>
-
-        <div class="form-group">
-          <label>Score (1-10)</label>
-          <input type="number" id="scoreInput" class="form-input" min="1" max="10" placeholder="9" />
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn-secondary" id="closeAddModal">Cancel</button>
-        <button class="btn" id="saveEntryBtn">Save Entry</button>
       </div>
     </div>
   </div>
 
-  <style>
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-  </style>
-
   <script>
-    /* ============================================================
-       State & Initialization
-    ============================================================ */
-    let library = JSON.parse(localStorage.getItem('omnitrack_library')) || [];
-    let currentFilter = 'all';
+    /* State */
+    let library = JSON.parse(localStorage.getItem('omnivault_db')) || [];
+    let currentCategory = 'all';
     let debounceTimer = null;
 
-    const mediaGrid = document.getElementById('mediaGrid');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const nsfwBlurToggle = document.getElementById('nsfwBlurToggle');
+    const cardsGrid = document.getElementById('cardsGrid');
+    const filterBtns = document.querySelectorAll('.pill-btn');
+    const nsfwBlur = document.getElementById('nsfwBlur');
 
-    const addModal = document.getElementById('addModal');
-    const openAddModal = document.getElementById('openAddModal');
-    const closeAddModal = document.getElementById('closeAddModal');
-    const saveEntryBtn = document.getElementById('saveEntryBtn');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const openSearchBtn = document.getElementById('openSearchBtn');
+    const closeSearchBtn = document.getElementById('closeSearchBtn');
+    const searchInput = document.getElementById('searchInput');
+    const apiCategory = document.getElementById('apiCategory');
+    const searchResults = document.getElementById('searchResults');
+    const searchIndicator = document.getElementById('searchIndicator');
 
-    const titleInput = document.getElementById('titleInput');
-    const mediaTypeSelect = document.getElementById('mediaTypeSelect');
-    const coverUrlInput = document.getElementById('coverUrlInput');
-    const statusSelect = document.getElementById('statusSelect');
-    const scoreInput = document.getElementById('scoreInput');
-    const autocompleteResults = document.getElementById('autocompleteResults');
-    const apiSpinner = document.getElementById('apiSpinner');
+    /* Render Vault Cards */
+    function renderVault() {
+      cardsGrid.innerHTML = '';
+      const items = library.filter(i => currentCategory === 'all' || i.type === currentCategory);
 
-    /* ============================================================
-       Render Engine
-    ============================================================ */
-    function render() {
-      mediaGrid.innerHTML = '';
-      const filtered = library.filter(item => currentFilter === 'all' || item.type === currentFilter);
-
-      if (filtered.length === 0) {
-        mediaGrid.innerHTML = `
+      if (items.length === 0) {
+        cardsGrid.innerHTML = `
           <div class="empty-state">
-            <span class="material-symbols-rounded" style="font-size: 3.5rem; opacity: 0.35; margin-bottom: 0.5rem;">folder_open</span>
-            <p>No titles in this section yet. Click "+ Add Entry" to populate your list!</p>
-          </div>`;
+            <span class="material-symbols-rounded" style="font-size: 3.5rem; opacity: 0.3; margin-bottom: 0.5rem;">auto_stories</span>
+            <p>Your vault is empty in this category. Click the search icon above to add your first title!</p>
+          </div>
+        `;
         return;
       }
 
-      filtered.forEach(item => {
+      items.forEach(item => {
         const isHentai = item.type === 'hentai';
-        const shouldBlur = isHentai && nsfwBlurToggle.checked;
-        const poster = item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&q=80';
+        const applyBlur = isHentai && nsfwBlur.checked;
+        const poster = item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80';
+        const desc = item.desc || 'No description provided for this entry.';
 
-        const card = document.createElement('article');
+        const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <div class="poster-container">
-            <img src="${poster}" alt="${item.title}" class="poster-img ${shouldBlur ? 'blur-nsfw' : ''}" loading="lazy" />
-            <span class="category-badge">${item.type}</span>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title" title="${item.title}">${item.title}</h3>
-            <div class="card-footer">
-              <span>${item.status}</span>
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                ${item.score ? `<span class="score-badge"><span class="material-symbols-rounded" style="font-size: 1rem;">star</span>${item.score}</span>` : ''}
-                <button class="icon-btn-danger" onclick="deleteEntry('${item.id}')" title="Delete entry">
-                  <span class="material-symbols-rounded" style="font-size: 1.15rem;">delete</span>
-                </button>
+          <div class="card-top">
+            <img src="${poster}" alt="${item.title}" class="card-thumb ${applyBlur ? 'blur-nsfw' : ''}" loading="lazy" />
+            <div class="card-top-info">
+              <div>
+                <h3 class="card-title" title="${item.title}">${item.title}</h3>
+                <div class="badge-row">
+                  <span class="tag accent">${item.type}</span>
+                  <span class="tag">${item.status || 'Saved'}</span>
+                </div>
+              </div>
+              <div class="rating">
+                <span class="material-symbols-rounded" style="font-size: 1rem;">star</span>
+                ${item.score || '9.0'}
               </div>
             </div>
           </div>
+          <div class="card-body">
+            <p class="card-description">${desc.replace(/<[^>]*>?/gm, '')}</p>
+            <div class="card-footer">
+              <span>Added: ${item.date || 'Recently'}</span>
+              <button class="delete-action" onclick="removeEntry('${item.id}')" title="Delete">
+                <span class="material-symbols-rounded" style="font-size: 1.15rem;">delete</span>
+              </button>
+            </div>
+          </div>
         `;
-        mediaGrid.appendChild(card);
+        cardsGrid.appendChild(card);
       });
     }
 
-    /* ============================================================
-       Zero-Key Live API Search Integrations
-    ============================================================ */
-    titleInput.addEventListener('input', () => {
+    /* Search Pop-up Handlers */
+    openSearchBtn.onclick = () => {
+      searchOverlay.classList.add('active');
+      searchInput.focus();
+    };
+
+    closeSearchBtn.onclick = () => searchOverlay.classList.remove('active');
+
+    searchOverlay.onclick = (e) => {
+      if (e.target === searchOverlay) searchOverlay.classList.remove('active');
+    };
+
+    /* Live API Search Engine */
+    searchInput.addEventListener('input', () => {
       clearTimeout(debounceTimer);
-      const query = titleInput.value.trim();
-      const type = mediaTypeSelect.value;
+      const query = searchInput.value.trim();
+      const type = apiCategory.value;
 
       if (query.length < 2) {
-        autocompleteResults.classList.remove('visible');
-        autocompleteResults.innerHTML = '';
+        searchResults.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2rem 0;font-size:0.88rem;">Type to start searching...</div>';
         return;
       }
 
-      debounceTimer = setTimeout(() => {
-        fetchMediaSuggestions(query, type);
-      }, 350);
+      debounceTimer = setTimeout(() => executeSearch(query, type), 300);
     });
 
-    async function fetchMediaSuggestions(query, type) {
-      apiSpinner.style.display = 'inline-block';
+    apiCategory.addEventListener('change', () => {
+      if (searchInput.value.trim().length >= 2) {
+        executeSearch(searchInput.value.trim(), apiCategory.value);
+      }
+    });
+
+    async function executeSearch(query, type) {
+      searchIndicator.style.animation = 'spin 1s linear infinite';
+      searchResults.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2rem 0;">Searching...</div>';
 
       try {
         if (type === 'anime' || type === 'manga' || type === 'hentai') {
-          // AniList GraphQL Public Endpoint (No Keys Needed)
-          const anilistQuery = `
-            query ($search: String, $type: MediaType, $isAdult: Boolean) {
-              Page(perPage: 5) {
-                media(search: $search, type: $type, isAdult: $isAdult) {
+          const gql = `
+            query ($q: String, $type: MediaType, $adult: Boolean) {
+              Page(perPage: 6) {
+                media(search: $q, type: $type, isAdult: $adult) {
                   title { english romaji }
                   coverImage { large }
-                  format
+                  description
+                  averageScore
                 }
               }
             }
           `;
-
           const variables = {
-            search: query,
+            q: query,
             type: type === 'manga' ? 'MANGA' : 'ANIME',
-            isAdult: type === 'hentai'
+            adult: type === 'hentai'
           };
-
           const res = await fetch('https://graphql.anilist.co', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ query: anilistQuery, variables })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: gql, variables })
           });
-
-          const data = await res.json();
-          const items = data?.data?.Page?.media || [];
-          displaySuggestions(items.map(m => ({
+          const json = await res.json();
+          renderResults((json?.data?.Page?.media || []).map(m => ({
             title: m.title.english || m.title.romaji,
             cover: m.coverImage.large,
-            sub: m.format || type
+            desc: m.description,
+            score: m.averageScore ? (m.averageScore / 10).toFixed(1) : '8.5',
+            type
           })));
 
         } else if (type === 'show') {
-          // TVMaze Open API (No Keys Needed)
           const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`);
-          const data = await res.json();
-          displaySuggestions(data.slice(0, 5).map(item => ({
-            title: item.show.name,
-            cover: item.show.image?.medium || item.show.image?.original || '',
-            sub: item.show.premiered ? item.show.premiered.slice(0, 4) : 'TV'
+          const json = await res.json();
+          renderResults(json.slice(0, 6).map(s => ({
+            title: s.show.name,
+            cover: s.show.image?.medium || s.show.image?.original || '',
+            desc: s.show.summary,
+            score: s.show.rating?.average ? s.show.rating.average.toFixed(1) : '8.0',
+            type: 'show'
           })));
 
         } else if (type === 'movie') {
-          // iTunes Open Search API for Movies (Reliable & No Keys Needed)
-          const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=movie&limit=5`);
-          const data = await res.json();
-          displaySuggestions((data.results || []).map(item => ({
-            title: item.trackName,
-            cover: item.artworkUrl100 ? item.artworkUrl100.replace('100x100bb', '600x600bb') : '',
-            sub: item.releaseDate ? item.releaseDate.slice(0, 4) : 'Movie'
+          const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=movie&limit=6`);
+          const json = await res.json();
+          renderResults((json.results || []).map(m => ({
+            title: m.trackName,
+            cover: m.artworkUrl100 ? m.artworkUrl100.replace('100x100bb', '600x600bb') : '',
+            desc: m.longDescription || 'No description available.',
+            score: '8.2',
+            type: 'movie'
           })));
         }
       } catch (err) {
-        console.error("API Fetch Error: ", err);
+        searchResults.innerHTML = '<div style="text-align:center;color:var(--danger);padding:2rem 0;">Search service temporary error.</div>';
       } finally {
-        apiSpinner.style.display = 'none';
+        searchIndicator.style.animation = 'none';
       }
     }
 
-    function displaySuggestions(items) {
+    function renderResults(items) {
       if (!items || items.length === 0) {
-        autocompleteResults.classList.remove('visible');
+        searchResults.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2rem 0;">No results found.</div>';
         return;
       }
 
-      autocompleteResults.innerHTML = '';
+      searchResults.innerHTML = '';
       items.forEach(item => {
         const row = document.createElement('div');
-        row.className = 'suggestion-row';
+        row.className = 'result-row';
         row.innerHTML = `
-          <img src="${item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&q=80'}" class="suggestion-thumb" />
-          <div class="suggestion-info">
+          <img src="${item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&q=80'}" class="result-thumb" />
+          <div class="result-info">
             <h4>${item.title}</h4>
-            <p>${item.sub}</p>
+            <p>${(item.desc || '').replace(/<[^>]*>?/gm, '')}</p>
           </div>
+          <span class="save-badge">
+            <span class="material-symbols-rounded" style="font-size: 1rem;">add</span> Add
+          </span>
         `;
-
         row.onclick = () => {
-          titleInput.value = item.title;
-          coverUrlInput.value = item.cover || '';
-          autocompleteResults.classList.remove('visible');
-          autocompleteResults.innerHTML = '';
+          addEntryToVault(item);
+          searchOverlay.classList.remove('active');
         };
-
-        autocompleteResults.appendChild(row);
+        searchResults.appendChild(row);
       });
-
-      autocompleteResults.classList.add('visible');
     }
 
-    // Close autocomplete suggestions if clicking outside
-    document.addEventListener('click', (e) => {
-      if (!autocompleteResults.contains(e.target) && e.target !== titleInput) {
-        autocompleteResults.classList.remove('visible');
-      }
-    });
-
-    /* ============================================================
-       Add, Delete, Filter
-    ============================================================ */
-    openAddModal.onclick = () => addModal.classList.add('active');
-    closeAddModal.onclick = () => {
-      addModal.classList.remove('active');
-      autocompleteResults.classList.remove('visible');
-    };
-
-    saveEntryBtn.onclick = () => {
-      const title = titleInput.value.trim();
-      if (!title) {
-        alert('Please provide a title.');
-        return;
-      }
-
-      const newEntry = {
+    /* Vault State Mutations */
+    function addEntryToVault(item) {
+      library.unshift({
         id: Date.now().toString(),
-        title,
-        type: mediaTypeSelect.value,
-        cover: coverUrlInput.value.trim(),
-        status: statusSelect.value,
-        score: scoreInput.value.trim()
-      };
+        title: item.title,
+        type: item.type,
+        cover: item.cover,
+        desc: item.desc,
+        score: item.score,
+        status: 'In Progress',
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      });
+      saveDB();
+      renderVault();
+    }
 
-      library.unshift(newEntry);
-      saveLibrary();
-
-      // Reset form fields
-      titleInput.value = '';
-      coverUrlInput.value = '';
-      scoreInput.value = '';
-      autocompleteResults.classList.remove('visible');
-      addModal.classList.remove('active');
-      render();
+    window.removeEntry = function(id) {
+      library = library.filter(i => i.id !== id);
+      saveDB();
+      renderVault();
     };
 
-    window.deleteEntry = function(id) {
-      library = library.filter(entry => entry.id !== id);
-      saveLibrary();
-      render();
-    };
+    function saveDB() {
+      localStorage.setItem('omnivault_db', JSON.stringify(library));
+    }
 
+    /* Filter pills */
     filterBtns.forEach(btn => {
       btn.onclick = () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        currentFilter = btn.getAttribute('data-category');
-        render();
+        currentCategory = btn.getAttribute('data-filter');
+        renderVault();
       };
     });
 
-    nsfwBlurToggle.onchange = () => render();
+    nsfwBlur.onchange = () => renderVault();
 
-    function saveLibrary() {
-      localStorage.setItem('omnitrack_library', JSON.stringify(library));
-    }
-
-    /* ============================================================
-       JSON Backup Export / Import Engine
-    ============================================================ */
-    document.getElementById('exportJsonBtn').onclick = () => {
-      if (library.length === 0) {
-        alert("Your library is currently empty.");
-        return;
-      }
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(library, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `omnitrack_backup_${new Date().toISOString().slice(0, 10)}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
+    /* Backup Import & Export */
+    document.getElementById('exportBtn').onclick = () => {
+      if (library.length === 0) return alert('Vault is empty.');
+      const blob = new Blob([JSON.stringify(library, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `omnivault_backup_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
     };
 
-    document.getElementById('importFileInput').onchange = (e) => {
+    document.getElementById('fileInput').onchange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = (event) => {
         try {
           const imported = JSON.parse(event.target.result);
           if (Array.isArray(imported)) {
-            // Merge unique IDs
-            const existingIds = new Set(library.map(i => i.id));
-            const newEntries = imported.filter(i => !existingIds.has(i.id));
-            library = [...newEntries, ...library];
-            saveLibrary();
-            render();
-            alert(`Successfully imported ${newEntries.length} entries!`);
-          } else {
-            alert('Invalid backup file format.');
+            const existing = new Set(library.map(i => i.id));
+            const fresh = imported.filter(i => !existing.has(i.id));
+            library = [...fresh, ...library];
+            saveDB();
+            renderVault();
+            alert(`Loaded ${fresh.length} entries successfully.`);
           }
         } catch (err) {
-          alert('Failed to parse JSON file.');
+          alert('Could not read JSON backup file.');
         }
       };
       reader.readAsText(file);
       e.target.value = '';
     };
 
-    // Initial load
-    render();
+    renderVault();
   </script>
 </body>
 </html>
