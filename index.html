@@ -3,53 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Developer & Creator Hub</title>
+  <title>OmniTrack | Universal Media Vault</title>
 
   <!-- Google Material Symbols -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
   <style>
-    /* --- CSS Variables & Reset --- */
     :root {
       --bg: #090d16;
-      --card-bg: rgba(22, 30, 49, 0.75);
+      --card-bg: rgba(20, 28, 46, 0.75);
       --card-border: rgba(255, 255, 255, 0.08);
       --accent: #38bdf8;
       --accent-glow: rgba(56, 189, 248, 0.25);
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --bubble-bg: #1e293b;
-      --bubble-hover: #2e3d57;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --bubble-bg: #192237;
+      --bubble-hover: #263552;
+      --danger: #f43f5e;
+      --success: #34d399;
+      --radius: 18px;
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
 
     body {
       background-color: var(--bg);
-      color: var(--text-main);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2.5rem 1rem;
+      padding: 2rem 1rem 5rem 1rem;
       position: relative;
-      overflow-x: hidden;
     }
 
-    /* Ambient background glow */
     body::before {
       content: '';
       position: fixed;
-      top: -150px;
+      top: -120px;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
+      width: 700px;
       height: 350px;
       background: radial-gradient(circle, rgba(56, 189, 248, 0.12), transparent 70%);
       z-index: 0;
@@ -58,414 +53,814 @@
 
     .container {
       width: 100%;
-      max-width: 860px;
+      max-width: 1050px;
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
-    /* --- Profile Header (Bubble Card) --- */
-    .profile-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
-      padding: 2.25rem;
+    /* --- Navbar & Actions --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .logo-box {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      gap: 0.6rem;
+    }
+
+    .logo-box h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-box span { color: var(--accent); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
       flex-wrap: wrap;
     }
 
-    .avatar {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #fff;
-      box-shadow: 0 0 20px var(--accent-glow);
-      flex-shrink: 0;
-    }
-
-    .profile-info {
-      flex: 1;
-      min-width: 240px;
-    }
-
-    .name-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .name-row h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-    }
-
-    .status-badge {
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      background-color: #34d399;
-      border-radius: 50%;
-      box-shadow: 0 0 6px #34d399;
-    }
-
-    .profile-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .action-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       background: var(--accent);
       color: #04101e;
       border: none;
-      padding: 0.65rem 1.25rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 999px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
-      transition: var(--transition);
       box-shadow: 0 4px 15px var(--accent-glow);
+      transition: var(--transition);
     }
 
-    .action-btn:hover {
+    .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 6px 22px rgba(56, 189, 248, 0.4);
     }
 
-    /* --- Skills Pill Bar --- */
-    .skills-section h2, .projects-section h2 {
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #e2e8f0;
-    }
-
-    .bubble-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-    }
-
-    .bubble-pill {
+    .btn-secondary {
       background: var(--bubble-bg);
       border: 1px solid var(--card-border);
-      padding: 0.5rem 1rem;
+      color: var(--text);
+      padding: 0.55rem 0.95rem;
       border-radius: 999px;
       font-size: 0.85rem;
-      color: #cbd5e1;
+      font-weight: 500;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
       transition: var(--transition);
-      cursor: default;
     }
 
-    .bubble-pill:hover {
+    .btn-secondary:hover {
       background: var(--bubble-hover);
-      color: var(--accent);
-      border-color: rgba(56, 189, 248, 0.3);
-      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* --- Project Grid --- */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.25rem;
+    /* --- Filter & Controls Toolbar --- */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .project-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .filter-btn {
+      background: var(--bubble-bg);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 1.5rem;
+      color: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      background: var(--bubble-hover);
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #04101e;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      user-select: none;
+    }
+
+    .toggle-wrap input {
+      cursor: pointer;
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    /* --- Media Grid & Cards --- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
       transition: var(--transition);
       position: relative;
     }
 
-    .project-card:hover {
+    .card:hover {
       transform: translateY(-4px);
       border-color: rgba(56, 189, 248, 0.35);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
     }
 
-    .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
+    .poster-container {
+      width: 100%;
+      height: 255px;
+      background: #111728;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .blur-nsfw {
+      filter: blur(18px) brightness(0.8);
+      transform: scale(1.08);
+    }
+
+    .blur-nsfw:hover {
+      filter: blur(0) brightness(1);
+      transform: scale(1);
+    }
+
+    .category-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(10, 15, 26, 0.85);
+      backdrop-filter: blur(8px);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card-body {
+      padding: 0.95rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .project-card h3 {
-      font-size: 1.15rem;
-    }
-
-    .project-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.5;
+      flex-direction: column;
+      gap: 0.45rem;
       flex: 1;
     }
 
-    .card-tags {
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.5rem;
+    }
+
+    .card-footer {
       display: flex;
-      gap: 0.4rem;
-      margin-top: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
     }
 
-    .mini-tag {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #94a3b8;
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      color: #facc15;
+      font-weight: 600;
+      font-size: 0.82rem;
     }
 
-    /* --- Modal Overlay --- */
-    .modal-backdrop {
+    .icon-btn-danger {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .icon-btn-danger:hover {
+      color: var(--danger);
+      background: rgba(244, 63, 94, 0.12);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 1rem;
+      color: var(--muted);
+    }
+
+    /* --- Modals & Overlays --- */
+    .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(6px);
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 1.25rem;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
-      z-index: 10;
-      padding: 1rem;
+      z-index: 100;
     }
 
-    .modal-backdrop.active {
+    .modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .modal-box {
-      background: #131b2e;
+    .modal-card {
+      background: #111827;
       border: 1px solid var(--card-border);
       border-radius: 24px;
       padding: 2rem;
-      max-width: 420px;
+      max-width: 480px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      transform: scale(0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+      transform: scale(0.96);
       transition: transform 0.25s ease;
-      position: relative;
     }
 
-    .modal-backdrop.active .modal-box {
+    .modal-overlay.active .modal-card {
       transform: scale(1);
     }
 
-    .modal-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    .modal-links {
+    .form-group {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
+      gap: 0.45rem;
+      position: relative;
     }
 
-    .link-pill {
+    .form-group label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .form-input, .form-select {
+      background: var(--bubble-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 0.7rem 0.9rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    /* Live API Search Suggestions Dropdown */
+    .autocomplete-list {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #162035;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 10;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .autocomplete-list.visible {
+      display: block;
+    }
+
+    .suggestion-row {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      background: var(--bubble-bg);
-      border: 1px solid var(--card-border);
-      padding: 0.75rem 1rem;
-      border-radius: 14px;
-      color: #f1f5f9;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: var(--transition);
+      padding: 0.6rem 0.75rem;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.15s;
     }
 
-    .link-pill:hover {
+    .suggestion-row:hover {
       background: var(--bubble-hover);
-      border-color: rgba(56, 189, 248, 0.4);
-      color: var(--accent);
+    }
+
+    .suggestion-thumb {
+      width: 32px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+      background: #090d16;
+    }
+
+    .suggestion-info h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 320px;
+    }
+
+    .suggestion-info p {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
 
-  <main class="container">
-    <!-- Profile Card Header -->
-    <header class="profile-card">
-      <div class="avatar">Q</div>
-      <div class="profile-info">
-        <div class="name-row">
-          <h1>Qwideyed</h1>
-          <span class="status-badge">
-            <span class="status-dot"></span> Online
-          </span>
-        </div>
-        <p class="profile-desc">
-          Frontend developer & interface enthusiast crafting modern UI dashboards, single-page web experiences, and interactive web tools.
-        </p>
-        <button class="action-btn" id="openModalBtn">
-          <span class="material-symbols-rounded">chat</span> Get in Touch
+  <div class="container">
+    <header>
+      <div class="logo-box">
+        <span class="material-symbols-rounded" style="font-size: 2.2rem; color: var(--accent);">collections_bookmark</span>
+        <h1>Omni<span>Track</span></h1>
+      </div>
+
+      <div class="header-actions">
+        <!-- Import / Export Controls -->
+        <button class="btn-secondary" id="exportJsonBtn" title="Export Library JSON">
+          <span class="material-symbols-rounded" style="font-size: 1.1rem;">download</span> Export
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('importFileInput').click()" title="Import Library JSON">
+          <span class="material-symbols-rounded" style="font-size: 1.1rem;">upload</span> Import
+        </button>
+        <input type="file" id="importFileInput" accept=".json" style="display: none;" />
+
+        <button class="btn" id="openAddModal">
+          <span class="material-symbols-rounded">add</span> Add Entry
         </button>
       </div>
     </header>
 
-    <!-- Skills Section -->
-    <section class="skills-section">
-      <h2>
-        <span class="material-symbols-rounded" style="color: var(--accent);">bolt</span>
-        Toolkit & Interests
-      </h2>
-      <div class="bubble-wrap">
-        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">code</span> HTML & CSS</span>
-        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">javascript</span> Modern JS</span>
-        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">palette</span> UI Design</span>
-        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">api</span> AniList & Web APIs</span>
-        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">terminal</span> Lua Scripting</span>
-        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">gamepad</span> Game Dev</span>
+    <!-- Toolbar: Filters + 18+ Toggle -->
+    <div class="toolbar">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="anime">Anime</button>
+        <button class="filter-btn" data-category="manga">Manga</button>
+        <button class="filter-btn" data-category="hentai">Hentai (18+)</button>
+        <button class="filter-btn" data-category="movie">Movies</button>
+        <button class="filter-btn" data-category="show">Shows</button>
       </div>
-    </section>
 
-    <!-- Projects Grid -->
-    <section class="projects-section">
-      <h2>
-        <span class="material-symbols-rounded" style="color: var(--accent);">grid_view</span>
-        Featured Builds
-      </h2>
-      <div class="project-grid">
-        <article class="project-card">
-          <div class="card-icon">
-            <span class="material-symbols-rounded">movie</span>
-          </div>
-          <h3>Media & Anime Trackers</h3>
-          <p>Single-page interfaces fetching media synopses, live trending lists, and art directly from open public APIs.</p>
-          <div class="card-tags">
-            <span class="mini-tag">API Integration</span>
-            <span class="mini-tag">Vanilla JS</span>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="card-icon">
-            <span class="material-symbols-rounded">schedule</span>
-          </div>
-          <h3>Interactive Timelines</h3>
-          <p>Searchable dynamic date lookups, historical event feeds, and lightweight modal architectures.</p>
-          <div class="card-tags">
-            <span class="mini-tag">Dark Mode</span>
-            <span class="mini-tag">Single File</span>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="card-icon">
-            <span class="material-symbols-rounded">extension</span>
-          </div>
-          <h3>Gaming Tools & Scripts</h3>
-          <p>Lightweight companion calculators, user guides, and script experiments for online sandbox platforms.</p>
-          <div class="card-tags">
-            <span class="mini-tag">Tooling</span>
-            <span class="mini-tag">Lua</span>
-          </div>
-        </article>
+      <div class="toggle-wrap">
+        <input type="checkbox" id="nsfwBlurToggle" checked />
+        <label for="nsfwBlurToggle">Blur 18+ Artwork</label>
       </div>
-    </section>
-  </main>
+    </div>
 
-  <!-- Connect / Modal Overlay -->
-  <div class="modal-backdrop" id="modalBackdrop">
-    <div class="modal-box">
-      <button class="modal-close" id="closeModalBtn">
-        <span class="material-symbols-rounded">close</span>
-      </button>
-      <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Let's Connect</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Find my latest builds, repositories, and community channels below.</p>
-      
-      <div class="modal-links">
-        <a href="https://github.com" target="_blank" class="link-pill">
-          <span class="material-symbols-rounded" style="color: var(--accent);">code_blocks</span> GitHub Profile
-        </a>
-        <a href="https://discord.com" target="_blank" class="link-pill">
-          <span class="material-symbols-rounded" style="color: #818cf8;">forum</span> Discord Community
-        </a>
-        <a href="mailto:contact@example.com" class="link-pill">
-          <span class="material-symbols-rounded" style="color: #34d399;">mail</span> Send an Email
-        </a>
+    <!-- Main Grid -->
+    <main class="grid" id="mediaGrid"></main>
+  </div>
+
+  <!-- Add Item Modal with Live API Autocomplete -->
+  <div class="modal-overlay" id="addModal">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 1.25rem;">New Library Entry</h2>
+        <span id="apiSpinner" class="material-symbols-rounded" style="display: none; animation: spin 1s linear infinite; color: var(--accent);">sync</span>
+      </div>
+
+      <div class="form-group">
+        <label>Media Category</label>
+        <select id="mediaTypeSelect" class="form-select">
+          <option value="anime">Anime</option>
+          <option value="manga">Manga</option>
+          <option value="hentai">Hentai (18+)</option>
+          <option value="movie">Movie</option>
+          <option value="show">TV Show</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Search Title (Type to fetch covers & info)</label>
+        <input type="text" id="titleInput" class="form-input" placeholder="e.g. Frieren, Berserk, Breaking Bad..." autocomplete="off" />
+        <div id="autocompleteResults" class="autocomplete-list"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Poster Image URL</label>
+        <input type="url" id="coverUrlInput" class="form-input" placeholder="https://..." />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="statusSelect" class="form-select">
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Plan to Watch">Plan to Watch</option>
+            <option value="On Hold">On Hold</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Score (1-10)</label>
+          <input type="number" id="scoreInput" class="form-input" min="1" max="10" placeholder="9" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="closeAddModal">Cancel</button>
+        <button class="btn" id="saveEntryBtn">Save Entry</button>
       </div>
     </div>
   </div>
 
+  <style>
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+
   <script>
-    // Modal Open / Close Logic
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('modalBackdrop');
+    /* ============================================================
+       State & Initialization
+    ============================================================ */
+    let library = JSON.parse(localStorage.getItem('omnitrack_library')) || [];
+    let currentFilter = 'all';
+    let debounceTimer = null;
 
-    openBtn.addEventListener('click', () => {
-      modal.classList.add('active');
+    const mediaGrid = document.getElementById('mediaGrid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const nsfwBlurToggle = document.getElementById('nsfwBlurToggle');
+
+    const addModal = document.getElementById('addModal');
+    const openAddModal = document.getElementById('openAddModal');
+    const closeAddModal = document.getElementById('closeAddModal');
+    const saveEntryBtn = document.getElementById('saveEntryBtn');
+
+    const titleInput = document.getElementById('titleInput');
+    const mediaTypeSelect = document.getElementById('mediaTypeSelect');
+    const coverUrlInput = document.getElementById('coverUrlInput');
+    const statusSelect = document.getElementById('statusSelect');
+    const scoreInput = document.getElementById('scoreInput');
+    const autocompleteResults = document.getElementById('autocompleteResults');
+    const apiSpinner = document.getElementById('apiSpinner');
+
+    /* ============================================================
+       Render Engine
+    ============================================================ */
+    function render() {
+      mediaGrid.innerHTML = '';
+      const filtered = library.filter(item => currentFilter === 'all' || item.type === currentFilter);
+
+      if (filtered.length === 0) {
+        mediaGrid.innerHTML = `
+          <div class="empty-state">
+            <span class="material-symbols-rounded" style="font-size: 3.5rem; opacity: 0.35; margin-bottom: 0.5rem;">folder_open</span>
+            <p>No titles in this section yet. Click "+ Add Entry" to populate your list!</p>
+          </div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isHentai = item.type === 'hentai';
+        const shouldBlur = isHentai && nsfwBlurToggle.checked;
+        const poster = item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&q=80';
+
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="poster-container">
+            <img src="${poster}" alt="${item.title}" class="poster-img ${shouldBlur ? 'blur-nsfw' : ''}" loading="lazy" />
+            <span class="category-badge">${item.type}</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" title="${item.title}">${item.title}</h3>
+            <div class="card-footer">
+              <span>${item.status}</span>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                ${item.score ? `<span class="score-badge"><span class="material-symbols-rounded" style="font-size: 1rem;">star</span>${item.score}</span>` : ''}
+                <button class="icon-btn-danger" onclick="deleteEntry('${item.id}')" title="Delete entry">
+                  <span class="material-symbols-rounded" style="font-size: 1.15rem;">delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        mediaGrid.appendChild(card);
+      });
+    }
+
+    /* ============================================================
+       Zero-Key Live API Search Integrations
+    ============================================================ */
+    titleInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      const query = titleInput.value.trim();
+      const type = mediaTypeSelect.value;
+
+      if (query.length < 2) {
+        autocompleteResults.classList.remove('visible');
+        autocompleteResults.innerHTML = '';
+        return;
+      }
+
+      debounceTimer = setTimeout(() => {
+        fetchMediaSuggestions(query, type);
+      }, 350);
     });
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
+    async function fetchMediaSuggestions(query, type) {
+      apiSpinner.style.display = 'inline-block';
 
-    // Close modal if user clicks outside the modal card
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
+      try {
+        if (type === 'anime' || type === 'manga' || type === 'hentai') {
+          // AniList GraphQL Public Endpoint (No Keys Needed)
+          const anilistQuery = `
+            query ($search: String, $type: MediaType, $isAdult: Boolean) {
+              Page(perPage: 5) {
+                media(search: $search, type: $type, isAdult: $isAdult) {
+                  title { english romaji }
+                  coverImage { large }
+                  format
+                }
+              }
+            }
+          `;
+
+          const variables = {
+            search: query,
+            type: type === 'manga' ? 'MANGA' : 'ANIME',
+            isAdult: type === 'hentai'
+          };
+
+          const res = await fetch('https://graphql.anilist.co', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ query: anilistQuery, variables })
+          });
+
+          const data = await res.json();
+          const items = data?.data?.Page?.media || [];
+          displaySuggestions(items.map(m => ({
+            title: m.title.english || m.title.romaji,
+            cover: m.coverImage.large,
+            sub: m.format || type
+          })));
+
+        } else if (type === 'show') {
+          // TVMaze Open API (No Keys Needed)
+          const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`);
+          const data = await res.json();
+          displaySuggestions(data.slice(0, 5).map(item => ({
+            title: item.show.name,
+            cover: item.show.image?.medium || item.show.image?.original || '',
+            sub: item.show.premiered ? item.show.premiered.slice(0, 4) : 'TV'
+          })));
+
+        } else if (type === 'movie') {
+          // iTunes Open Search API for Movies (Reliable & No Keys Needed)
+          const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=movie&limit=5`);
+          const data = await res.json();
+          displaySuggestions((data.results || []).map(item => ({
+            title: item.trackName,
+            cover: item.artworkUrl100 ? item.artworkUrl100.replace('100x100bb', '600x600bb') : '',
+            sub: item.releaseDate ? item.releaseDate.slice(0, 4) : 'Movie'
+          })));
+        }
+      } catch (err) {
+        console.error("API Fetch Error: ", err);
+      } finally {
+        apiSpinner.style.display = 'none';
+      }
+    }
+
+    function displaySuggestions(items) {
+      if (!items || items.length === 0) {
+        autocompleteResults.classList.remove('visible');
+        return;
+      }
+
+      autocompleteResults.innerHTML = '';
+      items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'suggestion-row';
+        row.innerHTML = `
+          <img src="${item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&q=80'}" class="suggestion-thumb" />
+          <div class="suggestion-info">
+            <h4>${item.title}</h4>
+            <p>${item.sub}</p>
+          </div>
+        `;
+
+        row.onclick = () => {
+          titleInput.value = item.title;
+          coverUrlInput.value = item.cover || '';
+          autocompleteResults.classList.remove('visible');
+          autocompleteResults.innerHTML = '';
+        };
+
+        autocompleteResults.appendChild(row);
+      });
+
+      autocompleteResults.classList.add('visible');
+    }
+
+    // Close autocomplete suggestions if clicking outside
+    document.addEventListener('click', (e) => {
+      if (!autocompleteResults.contains(e.target) && e.target !== titleInput) {
+        autocompleteResults.classList.remove('visible');
       }
     });
+
+    /* ============================================================
+       Add, Delete, Filter
+    ============================================================ */
+    openAddModal.onclick = () => addModal.classList.add('active');
+    closeAddModal.onclick = () => {
+      addModal.classList.remove('active');
+      autocompleteResults.classList.remove('visible');
+    };
+
+    saveEntryBtn.onclick = () => {
+      const title = titleInput.value.trim();
+      if (!title) {
+        alert('Please provide a title.');
+        return;
+      }
+
+      const newEntry = {
+        id: Date.now().toString(),
+        title,
+        type: mediaTypeSelect.value,
+        cover: coverUrlInput.value.trim(),
+        status: statusSelect.value,
+        score: scoreInput.value.trim()
+      };
+
+      library.unshift(newEntry);
+      saveLibrary();
+
+      // Reset form fields
+      titleInput.value = '';
+      coverUrlInput.value = '';
+      scoreInput.value = '';
+      autocompleteResults.classList.remove('visible');
+      addModal.classList.remove('active');
+      render();
+    };
+
+    window.deleteEntry = function(id) {
+      library = library.filter(entry => entry.id !== id);
+      saveLibrary();
+      render();
+    };
+
+    filterBtns.forEach(btn => {
+      btn.onclick = () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-category');
+        render();
+      };
+    });
+
+    nsfwBlurToggle.onchange = () => render();
+
+    function saveLibrary() {
+      localStorage.setItem('omnitrack_library', JSON.stringify(library));
+    }
+
+    /* ============================================================
+       JSON Backup Export / Import Engine
+    ============================================================ */
+    document.getElementById('exportJsonBtn').onclick = () => {
+      if (library.length === 0) {
+        alert("Your library is currently empty.");
+        return;
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(library, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `omnitrack_backup_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    };
+
+    document.getElementById('importFileInput').onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const imported = JSON.parse(event.target.result);
+          if (Array.isArray(imported)) {
+            // Merge unique IDs
+            const existingIds = new Set(library.map(i => i.id));
+            const newEntries = imported.filter(i => !existingIds.has(i.id));
+            library = [...newEntries, ...library];
+            saveLibrary();
+            render();
+            alert(`Successfully imported ${newEntries.length} entries!`);
+          } else {
+            alert('Invalid backup file format.');
+          }
+        } catch (err) {
+          alert('Failed to parse JSON file.');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    };
+
+    // Initial load
+    render();
   </script>
 </body>
 </html>
