@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OmniTrack Vault</title>
-
-  <!-- Google Material Symbols -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AllMyAni - Live Media, Wiki & Community Hub</title>
+  
+  <!-- Google Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <style>
     :root {
-      --bg: #070a13;
-      --card-bg: rgba(18, 25, 42, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.25);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --bubble-bg: #151e33;
-      --bubble-hover: #223050;
-      --danger: #fb7185;
-      --radius: 20px;
-      --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #090c10;
+      --surface: #0f141c;
+      --card: #151b24;
+      --card-hover: #1c2432;
+      --card-inner: #1f2736;
+      --border: #232d3d;
+      --border-hover: #37465e;
+      --accent: #ff3366;
+      --accent-glow: rgba(255, 51, 102, 0.25);
+      --accent-blue: #38bdf8;
+      --accent-green: #10b981;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --nsfw: #ef4444;
+      --radius: 12px;
+      --radius-sm: 8px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
 
     body {
       background-color: var(--bg);
@@ -33,918 +42,2597 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2.2rem 1.25rem 6rem;
-      position: relative;
     }
 
-    /* Ambient top glow */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -160px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 750px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.15), transparent 70%);
-      z-index: 0;
-      pointer-events: none;
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      font-size: 1.25rem;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-    }
-
-    /* --- Header Bar --- */
+    /* Top Navigation */
     header {
+      width: 100%;
+      background: rgba(15, 20, 28, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    .nav-container {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 0.75rem 2rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding-bottom: 1.4rem;
-      border-bottom: 1px solid var(--card-border);
-      position: relative;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .brand-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.05));
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-
-    .brand h1 {
-      font-size: 1.55rem;
-      font-weight: 800;
-      letter-spacing: -0.4px;
-    }
-
-    .brand h1 span { color: var(--accent); }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .icon-button {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--bubble-bg);
-      border: 1px solid var(--card-border);
+      font-weight: 900;
+      font-size: 1.4rem;
       color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.6px;
+    }
+
+    .brand span { color: var(--accent); }
+
+    /* Mode Pills (Anime vs Manga) */
+    .mode-pills {
+      display: flex;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.2rem;
+      gap: 0.2rem;
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mode-btn.active { 
+      background: var(--accent); 
+      color: #fff;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .nav-menus {
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
+      gap: 0.4rem;
     }
 
-    .icon-button:hover {
-      background: var(--bubble-hover);
-      border-color: rgba(56, 189, 248, 0.4);
-      color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px var(--accent-glow);
-    }
-
-    /* --- Settings Gear Hover Dropdown --- */
-    .settings-wrapper {
-      position: relative;
-    }
-
-    .settings-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      width: 200px;
-      background: #111827;
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 0.5rem;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: var(--transition);
-      z-index: 60;
-    }
-
-    .settings-wrapper:hover .settings-dropdown {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
+    .dropdown { position: relative; }
 
     .dropdown-btn {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.65rem 0.85rem;
-      border: none;
       background: transparent;
-      color: var(--text);
-      font-size: 0.86rem;
-      font-weight: 500;
-      border-radius: 10px;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
       cursor: pointer;
-      text-align: left;
-      transition: var(--transition);
-    }
-
-    .dropdown-btn:hover {
-      background: var(--bubble-hover);
-      color: var(--accent);
-    }
-
-    /* --- Horizontal Filter Toolbar (No Sidebar) --- */
-    .toolbar {
+      border-radius: var(--radius-sm);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.25rem;
     }
 
-    .filter-pills {
+    .dropdown-btn:hover,
+    .dropdown:hover .dropdown-btn {
+      color: var(--text);
+      background: var(--card);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      min-width: 180px;
+      padding: 0.5rem;
+      z-index: 200;
+    }
+
+    .dropdown:hover .dropdown-content {
       display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-bottom: 0.25rem;
+      flex-direction: column;
+      gap: 0.2rem;
     }
 
-    .pill-btn {
-      background: var(--bubble-bg);
-      border: 1px solid var(--card-border);
-      color: var(--muted);
-      padding: 0.5rem 1.1rem;
-      border-radius: 999px;
+    .dropdown-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.55rem 0.8rem;
       font-size: 0.85rem;
       font-weight: 500;
+      border-radius: 6px;
       cursor: pointer;
-      white-space: nowrap;
-      transition: var(--transition);
     }
 
-    .pill-btn:hover {
-      background: var(--bubble-hover);
+    .dropdown-item:hover {
+      background: var(--card-inner);
       color: var(--text);
     }
 
-    .pill-btn.active {
-      background: var(--accent);
-      color: #04101e;
-      font-weight: 700;
-      border-color: var(--accent);
-      box-shadow: 0 2px 12px var(--accent-glow);
-    }
-
-    .blur-control {
+    .header-ticker {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.84rem;
-      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .ticker-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Styled 18+ Button Switch */
+    .btn-nsfw {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
       user-select: none;
     }
 
-    .blur-control input {
-      accent-color: var(--accent);
-      width: 16px;
-      height: 16px;
+    .nsfw-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .btn-nsfw:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    .btn-nsfw.active {
+      border-color: var(--nsfw);
+      color: var(--nsfw);
+      background: rgba(239, 68, 68, 0.12);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-nsfw.active .nsfw-indicator {
+      background: var(--nsfw);
+      box-shadow: 0 0 6px var(--nsfw);
+    }
+
+    .icon-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
       cursor: pointer;
-    }
-
-    /* --- Cards Grid & Rich Description Card Layout --- */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.4rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
-    }
-
-    .card-top {
-      display: flex;
-      height: 175px;
+      align-items: center;
+      justify-content: center;
       position: relative;
-      background: #0d1424;
-      overflow: hidden;
+      transition: all 0.2s;
     }
 
-    .card-thumb {
-      width: 125px;
-      height: 100%;
-      object-fit: cover;
-      flex-shrink: 0;
-      transition: 0.3s ease;
+    .icon-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      background: var(--card-hover);
     }
 
-    .card-top-info {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1;
-      overflow: hidden;
+    .notif-badge-pill {
+      display: none;
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.1rem 0.35rem;
+      border-radius: 10px;
+      border: 2px solid var(--bg);
+      line-height: 1;
     }
 
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      line-height: 1.35;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .badge-row {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      margin-top: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      font-size: 0.72rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--muted);
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .tag.accent {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-    }
-
-    .card-body {
-      padding: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      flex: 1;
-    }
-
-    .card-description {
-      font-size: 0.86rem;
-      color: var(--muted);
-      line-height: 1.55;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      margin-top: auto;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .rating {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      color: #facc15;
-      font-weight: 700;
-    }
-
-    .delete-action {
-      background: transparent;
-      border: none;
-      color: var(--muted);
+    .avatar-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
       cursor: pointer;
-      display: inline-flex;
+      border: 2px solid var(--border);
+      display: flex;
       align-items: center;
-      padding: 0.3rem;
-      border-radius: 8px;
-      transition: var(--transition);
+      justify-content: center;
+      color: white;
     }
 
-    .delete-action:hover {
-      color: var(--danger);
-      background: rgba(251, 113, 133, 0.12);
-    }
+    .avatar-btn .material-symbols-outlined { font-size: 1.2rem; }
 
-    .blur-nsfw {
-      filter: blur(18px) brightness(0.8);
-    }
-
-    .blur-nsfw:hover {
-      filter: blur(0) brightness(1);
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 6rem 1rem;
-      color: var(--muted);
-    }
-
-    /* --- Search Pop-up Overlay --- */
-    .overlay {
+    /* Modals Base */
+    .modal-backdrop {
+      display: none;
       position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
+      inset: 0;
       background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
-      display: flex;
-      align-items: flex-start;
+      z-index: 1000;
+      align-items: center;
       justify-content: center;
-      padding: 4rem 1.25rem 2rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s ease;
-      z-index: 100;
     }
 
-    .overlay.active {
-      opacity: 1;
-      pointer-events: auto;
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
     }
 
-    .search-modal {
-      background: #101726;
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 1.5rem;
-      max-width: 620px;
-      width: 100%;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-      transform: translateY(-15px);
-      transition: transform 0.22s ease;
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    /* Notification Center Modal */
+    .notif-modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 640px;
+      max-height: 85vh;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      max-height: 80vh;
+      overflow: hidden;
+      position: relative;
     }
 
-    .overlay.active .search-modal {
-      transform: translateY(0);
-    }
-
-    .search-input-box {
+    .notif-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      background: var(--bubble-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 0.4rem 0.85rem;
-      gap: 0.6rem;
-      transition: var(--transition);
+      justify-content: space-between;
+      background: var(--card);
     }
 
-    .search-input-box:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    .notif-header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 800;
     }
 
-    .search-input-box input {
-      flex: 1;
-      background: transparent;
+    .notif-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-text-action {
+      background: none;
       border: none;
-      color: var(--text);
-      font-size: 1rem;
-      outline: none;
-      padding: 0.5rem 0;
+      color: var(--accent-blue);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .search-type-select {
-      background: #0d1322;
-      border: 1px solid var(--card-border);
-      color: var(--muted);
-      border-radius: 8px;
-      padding: 0.45rem 0.65rem;
-      font-size: 0.82rem;
-      outline: none;
+    .btn-text-action:hover { text-decoration: underline; }
+
+    .notif-tabs {
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
     }
 
-    .results-list {
+    .notif-tab {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .notif-tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .notif-stream {
+      flex: 1;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-      padding-right: 0.3rem;
+      padding: 0.5rem 0;
     }
 
-    .result-row {
+    .notif-card {
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+    }
+
+    .notif-card:hover { background: var(--card); }
+
+    .notif-card.unread {
+      background: rgba(255, 51, 102, 0.04);
+    }
+
+    .notif-card.unread::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .notif-avatar-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--card-inner);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 0.9rem;
-      padding: 0.65rem;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--card-border);
-      cursor: pointer;
-      transition: var(--transition);
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .result-row:hover {
-      background: var(--bubble-hover);
-      border-color: rgba(56, 189, 248, 0.3);
-      transform: translateX(4px);
+    .notif-content-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .notif-text {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: var(--text);
+    }
+
+    .notif-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Search Discovery Modal */
+    .search-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 7, 10, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 2000;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 5vh;
+    }
+
+    .search-modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 860px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+    }
+
+    .search-modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card);
+    }
+
+    .search-modal-input-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .search-modal-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.15rem;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .search-modal-input::placeholder { color: var(--text-muted); font-weight: 500; }
+
+    .search-modal-close-btn {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .search-filter-panel {
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      min-width: 65px;
+    }
+
+    .filter-chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-chip:hover { color: var(--text); border-color: var(--border-hover); }
+    .filter-chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    .filter-select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .search-modal-results {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-height: 280px;
+    }
+
+    .modal-result-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .modal-result-card:hover {
+      border-color: var(--accent);
+      background: var(--card-hover);
+    }
+
+    .result-lead {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow: hidden;
     }
 
     .result-thumb {
       width: 48px;
-      height: 64px;
+      height: 68px;
+      border-radius: 4px;
       object-fit: cover;
-      border-radius: 8px;
+      background: var(--card-inner);
       flex-shrink: 0;
-      background: #070a12;
     }
 
     .result-info {
-      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
       overflow: hidden;
     }
 
-    .result-info h4 {
-      font-size: 0.94rem;
-      font-weight: 600;
+    .result-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .result-info p {
-      font-size: 0.78rem;
-      color: var(--muted);
+    .result-tags {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-quick-stash {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .btn-quick-stash:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .search-status-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    /* Main Stage Layout */
+    main {
+      width: 100%;
+      max-width: 1540px;
+      padding: 1.5rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      transition: grid-template-columns 0.3s ease;
+    }
+
+    .hero-grid.full-width {
+      grid-template-columns: 1fr;
+    }
+
+    .spotlight-banner {
+      position: relative;
+      border-radius: var(--radius);
+      min-height: 340px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      background-size: cover;
+      background-position: center;
+      background-color: var(--card);
+      transition: background-image 0.4s ease-in-out;
+    }
+
+    .spotlight-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 12, 16, 0.2) 0%, rgba(9, 12, 16, 0.95) 100%);
+      z-index: 1;
+    }
+
+    .spotlight-content {
+      position: relative;
+      max-width: 750px;
+      z-index: 2;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: var(--card-inner);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .spotlight-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin: 0.5rem 0;
+      line-height: 1.15;
+      cursor: pointer;
+    }
+
+    .spotlight-title:hover { color: var(--accent); }
+
+    .spotlight-synopsis {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.45;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+
+    .spotlight-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1.2rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+    }
+
+    .spotlight-nav {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .spotlight-arrow {
+      background: rgba(15, 20, 28, 0.8);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .spotlight-arrow:hover { background: var(--accent); border-color: var(--accent); }
+
+    .spotlight-dots {
+      position: absolute;
+      bottom: 1rem;
+      right: 1.5rem;
+      z-index: 10;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .spotlight-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .spotlight-dot.active { background: var(--accent); width: 20px; border-radius: 10px; }
+
+    /* Radar Box */
+    .radar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .radar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .radar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .radar-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.8rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .radar-item:hover { border-color: var(--border-hover); }
+
+    .radar-item-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      max-width: 170px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .radar-countdown {
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .shelf-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .shelf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .shelf-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .shelf-grid-static {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .shelf-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .shelf-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+    .shelf-poster {
+      position: relative;
+      height: 220px;
+      background: #111620;
+    }
+
+    .shelf-poster img { width: 100%; height: 100%; object-fit: cover; }
+
+    .shelf-score {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ffd166;
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
+
+    .shelf-score .material-symbols-outlined { font-size: 0.8rem; font-variation-settings: 'FILL' 1; }
+
+    .shelf-meta { padding: 0.6rem 0.8rem; }
+
+    .shelf-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .shelf-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
       margin-top: 0.2rem;
     }
 
-    .save-badge {
+    /* Lower Section Workspace */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr 340px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .panel-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .panel-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .gauge-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .gauge-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .gauge-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: var(--card-inner);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .gauge-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .gauge-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .channel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .panel-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.5rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .panel-link:hover, .panel-link.active {
+      color: var(--text);
+      background: var(--card);
+    }
+
+    .panel-link.active { border-left: 3px solid var(--accent); }
+    .panel-link-left { display: flex; align-items: center; gap: 0.5rem; }
+
+    .feed-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .post-composer-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .composer-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .composer-input-fake {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .composer-input-fake:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .feed-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.6rem 1rem;
+    }
+
+    .filter-pills-group {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .feed-filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.4rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.12);
+      transition: all 0.15s;
+    }
+
+    .feed-filter-btn.active, .feed-filter-btn:hover {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .feed-filter-btn.active { color: var(--accent); }
+
+    .stream-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      overflow: hidden;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .stream-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-thumb {
+      position: relative;
+      background: #090c10;
+      min-height: 200px;
+      cursor: pointer;
+    }
+
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-post-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-user-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #232d3d;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
       color: var(--accent);
-      font-size: 0.76rem;
-      font-weight: 600;
+    }
+
+    .post-author-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .post-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      cursor: pointer;
+      line-height: 1.3;
+    }
+
+    .card-title:hover { color: var(--accent); }
+
+    .card-snippet {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+    }
+
+    .interaction-pills { display: flex; align-items: center; gap: 0.6rem; }
+
+    .vote-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25rem 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    .vote-pill button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .vote-pill button:hover { color: var(--accent); }
+    .vote-pill button .material-symbols-outlined { font-size: 1rem; }
+
+    .comment-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+    }
+
+    .comment-pill:hover { color: var(--text); border-color: var(--border-hover); }
+    .comment-pill .material-symbols-outlined { font-size: 1rem; }
+
+    .quick-track-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.2rem 0.5rem 0.2rem 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .step-btn {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-weight: 800;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-btn .material-symbols-outlined { font-size: 1rem; }
+
+    .aside-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .pulse-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .air-schedule-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .air-schedule-item:last-child { border-bottom: none; }
+
+    .air-thumb {
+      width: 44px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: var(--card);
       flex-shrink: 0;
     }
 
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .air-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .air-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .air-meta {
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      margin-top: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .topic-chip-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .topic-chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .topic-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .leaderboard-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .leaderboard-row:last-child { border-bottom: none; }
+
+    .user-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+    }
+
+    .karma-val {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tier-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tier-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .tier-price {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin: 0.5rem 0;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Header -->
-    <header>
-      <div class="brand">
-        <div class="brand-icon">
-          <span class="material-symbols-rounded">movie_filter</span>
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="nav-container">
+      <div class="brand-group">
+        <a href="index.html" class="brand">AllMyAni<span>.</span></a>
+
+        <div class="mode-pills">
+          <button id="btnModeAnime" class="mode-btn active">Anime</button>
+          <button id="btnModeManga" class="mode-btn">Manga</button>
         </div>
-        <h1>Omni<span>Track</span></h1>
+
+        <nav class="nav-menus">
+          <button class="dropdown-btn" onclick="openModal('directoryModal')">Web Directory</button>
+
+          <div class="dropdown">
+            <button class="dropdown-btn">My Library ▾</button>
+            <div class="dropdown-content">
+              <span class="dropdown-item" onclick="openModal('profileModal')">Currently Watching</span>
+              <span class="dropdown-item" onclick="openModal('profileModal')">Plan to Watch</span>
+              <span class="dropdown-item" onclick="openModal('profileModal')">Completed Library</span>
+            </div>
+          </div>
+        </nav>
       </div>
 
-      <div class="header-actions">
-        <!-- Search Trigger Icon Button -->
-        <button class="icon-button" id="openSearchBtn" title="Search AniList & Vault">
-          <span class="material-symbols-rounded">search</span>
+      <!-- Live Dynamic Status Ticker -->
+      <div class="header-ticker">
+        <span class="ticker-pulse"></span>
+        <span id="apiStatus">Connecting to AniList Catalog...</span>
+      </div>
+
+      <div class="header-right">
+        <!-- Search Icon Trigger -->
+        <button class="icon-btn" onclick="openSearchModal()" title="Search (Ctrl + K)">
+          <span class="material-symbols-outlined">search</span>
         </button>
 
-        <!-- Gear Settings Dropdown on Hover -->
-        <div class="settings-wrapper">
-          <button class="icon-button" title="Vault Settings">
-            <span class="material-symbols-rounded">settings</span>
+        <!-- Styled 18+ Button Switch -->
+        <button id="nsfwBtn" class="btn-nsfw" title="Toggle 18+ Vault Content">
+          <span class="nsfw-indicator"></span>
+          <span id="nsfwLabel">18+ OFF</span>
+        </button>
+        
+        <!-- Notifications Button with Real Unread Pill Badge -->
+        <button class="icon-btn" onclick="openNotifModal()" title="Notifications">
+          <span class="material-symbols-outlined">notifications</span>
+          <span id="notifBadgePill" class="notif-badge-pill">0</span>
+        </button>
+
+        <button class="btn-primary" onclick="openModal('donateModal')" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">
+          <span class="material-symbols-outlined" style="font-size: 1rem;">volunteer_activism</span> Support
+        </button>
+
+        <a href="profiles.html" class="avatar-btn" title="Profile & Stats" style="text-decoration: none;">
+            <span class="material-symbols-outlined">person</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search Discovery Modal -->
+  <div id="searchModal" class="search-modal" onclick="handleSearchBackdrop(event)">
+    <div class="search-modal-box">
+      <div class="search-modal-header">
+        <div class="search-modal-input-wrap">
+          <span class="material-symbols-outlined" style="color: var(--accent);">search</span>
+          <input type="text" id="modalSearchInput" class="search-modal-input" placeholder="Search anime, manga, lore, staff..." autocomplete="off">
+        </div>
+        <button class="search-modal-close-btn" onclick="closeSearchModal()">
+          <span>ESC</span>
+          <span class="material-symbols-outlined" style="font-size: 1rem;">close</span>
+        </button>
+      </div>
+
+      <div class="search-filter-panel">
+        <div class="filter-row">
+          <span class="filter-label">Format:</span>
+          <button class="filter-chip active" data-filter="format" data-val="" onclick="toggleChip(this)">All</button>
+          <button class="filter-chip" data-filter="format" data-val="TV" onclick="toggleChip(this)">TV Series</button>
+          <button class="filter-chip" data-filter="format" data-val="MOVIE" onclick="toggleChip(this)">Movie</button>
+          <button class="filter-chip" data-filter="format" data-val="MANGA" onclick="toggleChip(this)">Manga</button>
+          <button class="filter-chip" data-filter="format" data-val="ONE_SHOT" onclick="toggleChip(this)">One-Shot</button>
+        </div>
+
+        <div class="filter-row">
+          <span class="filter-label">Genres:</span>
+          <button class="filter-chip" data-filter="genre" data-val="Action" onclick="toggleChip(this)">Action</button>
+          <button class="filter-chip" data-filter="genre" data-val="Fantasy" onclick="toggleChip(this)">Fantasy</button>
+          <button class="filter-chip" data-filter="genre" data-val="Romance" onclick="toggleChip(this)">Romance</button>
+          <button class="filter-chip" data-filter="genre" data-val="Sci-Fi" onclick="toggleChip(this)">Sci-Fi</button>
+          <button class="filter-chip" data-filter="genre" data-val="Horror" onclick="toggleChip(this)">Horror</button>
+          <button class="filter-chip" data-filter="genre" data-val="Psychological" onclick="toggleChip(this)">Psychological</button>
+        </div>
+
+        <div class="filter-row" style="justify-content: space-between; border-top: 1px solid var(--border); padding-top: 0.6rem; margin-top: 0.2rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span class="filter-label">Sort By:</span>
+            <select id="modalSortSelect" class="filter-select" onchange="runFilterSearch()">
+              <option value="POPULARITY_DESC">Most Popular</option>
+              <option value="SCORE_DESC">Highest Rated</option>
+              <option value="TRENDING_DESC">Trending Now</option>
+              <option value="START_DATE_DESC">Newest Releases</option>
+            </select>
+          </div>
+
+          <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;">
+            <input type="checkbox" id="modalNsfwCheck" onchange="runFilterSearch()">
+            <span>Include 18+ Adult Vault</span>
+          </label>
+        </div>
+      </div>
+
+      <div id="modalResultsList" class="search-modal-results">
+        <div class="search-status-box">
+          <span class="material-symbols-outlined" style="font-size: 2.2rem; color: var(--text-muted);">manage_search</span>
+          <span>Type anything above or choose filters to discover titles</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Center Modal -->
+  <div id="notifModal" class="modal-backdrop">
+    <div class="notif-modal-box">
+      <div class="notif-header">
+        <div class="notif-header-title">
+          <span class="material-symbols-outlined" style="color: var(--accent);">notifications</span>
+          <span>Notifications & Alerts</span>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-text-action" onclick="markAllNotificationsRead()">Mark all as read</button>
+          <button class="btn-text-action" style="color: var(--text-muted);" onclick="clearAllNotifications()">Clear</button>
+          <button class="modal-close" style="position: static;" onclick="closeModal('notifModal')">
+            <span class="material-symbols-outlined">close</span>
           </button>
-          <div class="settings-dropdown">
-            <button class="dropdown-btn" id="exportBtn">
-              <span class="material-symbols-rounded" style="color: var(--accent); font-size: 1.1rem;">download</span>
-              Export Backup
+        </div>
+      </div>
+
+      <div class="notif-tabs">
+        <button class="notif-tab active" onclick="filterNotifications('all', this)">All</button>
+        <button class="notif-tab" onclick="filterNotifications('airing', this)">Broadcasts & Drops</button>
+        <button class="notif-tab" onclick="filterNotifications('community', this)">Community</button>
+        <button class="notif-tab" onclick="filterNotifications('stash', this)">My Stash</button>
+      </div>
+
+      <div id="notifStream" class="notif-stream"></div>
+    </div>
+  </div>
+
+  <!-- Main Stage -->
+  <main>
+    
+    <!-- 1. Auto-Rotating Spotlight (10 Items) + Live Radar -->
+    <section id="heroGrid" class="hero-grid">
+      <div id="spotlightContainer" class="spotlight-banner">
+        <div class="spotlight-overlay"></div>
+        
+        <div class="spotlight-nav">
+          <button class="spotlight-arrow" onclick="prevSpotlightSlide()">
+            <span class="material-symbols-outlined" style="font-size: 1.1rem;">chevron_left</span>
+          </button>
+          <button class="spotlight-arrow" onclick="nextSpotlightSlide()">
+            <span class="material-symbols-outlined" style="font-size: 1.1rem;">chevron_right</span>
+          </button>
+        </div>
+
+        <div class="spotlight-content">
+          <div class="spotlight-tags">
+            <span class="badge" style="background: var(--accent); color: white;">
+              <span class="material-symbols-outlined" style="font-size: 0.9rem;">local_fire_department</span>
+              <span id="spotlightRankLabel">#1 Trending Spotlight</span>
+            </span>
+          </div>
+          <h1 id="spotlightTitle" class="spotlight-title" onclick="openSpotlightEntry()">Fetching Title...</h1>
+          <p id="spotlightSynopsis" class="spotlight-synopsis">Connecting to AniList catalog...</p>
+          <div class="spotlight-actions">
+            <button class="btn-primary" onclick="trackCurrentSpotlight()">
+              <span class="material-symbols-outlined" style="font-size: 1.1rem;">add</span> Track Entry
             </button>
-            <button class="dropdown-btn" onclick="document.getElementById('fileInput').click()">
-              <span class="material-symbols-rounded" style="color: #34d399; font-size: 1.1rem;">upload</span>
-              Import Backup
-            </button>
-            <input type="file" id="fileInput" accept=".json" style="display: none;" />
+            <a id="spotlightDiscussionBtn" href="entry.html" class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size: 1.1rem;">forum</span> Discussion
+            </a>
           </div>
         </div>
-      </div>
-    </header>
 
-    <!-- Horizontal Category Filter Bar -->
-    <div class="toolbar">
-      <div class="filter-pills">
-        <button class="pill-btn active" data-filter="all">All</button>
-        <button class="pill-btn" data-filter="anime">Anime</button>
-        <button class="pill-btn" data-filter="manga">Manga</button>
-        <button class="pill-btn" data-filter="hentai">Hentai (18+)</button>
-        <button class="pill-btn" data-filter="movie">Movies</button>
-        <button class="pill-btn" data-filter="show">Shows</button>
+        <div class="spotlight-dots" id="spotlightDots"></div>
       </div>
 
-      <label class="blur-control">
-        <input type="checkbox" id="nsfwBlur" checked />
-        <span>Blur 18+ Covers</span>
-      </label>
+      <!-- Real-Time Airing Broadcast / Manga Publishing Radar -->
+      <div id="radarCard" class="radar-card">
+        <div class="radar-header">
+          <span style="display: flex; align-items: center; gap: 0.3rem;">
+            <span id="radarIcon" class="material-symbols-outlined">radar</span>
+            <span id="radarTitle">Broadcast Radar</span>
+          </span>
+          <span id="radarSub">Live Ticker</span>
+        </div>
+        <div id="radarList" class="radar-list"></div>
+      </div>
+    </section>
+
+    <!-- 2. Top Releases Shelf -->
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <h2 class="shelf-title">
+          <span class="material-symbols-outlined" style="color: var(--accent);">trending_up</span> Top Releases
+        </h2>
+      </div>
+      
+      <div id="shelfGrid" class="shelf-grid-static"></div>
+    </section>
+
+    <!-- 3. Lower Workspace Layout (Under Top Releases) -->
+    <div class="dashboard-layout">
+      
+      <!-- Left Column: Backlog Visual Gauge & Channel Matrix -->
+      <aside class="panel-box">
+        <div>
+          <h3 class="panel-title" style="margin-bottom: 0.6rem;">
+            <span class="material-symbols-outlined">donut_large</span> Backlog Gauge
+          </h3>
+          <div class="gauge-container">
+            <div class="gauge-top">
+              <span>Completion Rate</span>
+              <span id="gaugePercent" style="color: var(--accent);">0%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div id="gaugeBar" class="gauge-bar-fill" style="width: 0%;"></div>
+            </div>
+            <div class="gauge-legend">
+              <div>Watched: <strong id="libCount" style="color: var(--text);">0</strong></div>
+              <div>Planned: <strong style="color: var(--text);">14</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="panel-title" style="margin-bottom: 0.6rem;">
+            <span class="material-symbols-outlined">tune</span> Feed Channels
+          </h3>
+          <div class="channel-list">
+            <span class="panel-link active" onclick="fetchAniListData(); setActiveChannel(this);">
+              <span class="panel-link-left"><span class="material-symbols-outlined">whatshot</span> All Media</span>
+              <span class="badge" style="padding: 0.1rem 0.4rem;">Live</span>
+            </span>
+            <span class="panel-link" onclick="fetchByGenre('Action'); setActiveChannel(this);">
+              <span class="panel-link-left"><span class="material-symbols-outlined">swords</span> Action & Shonen</span>
+            </span>
+            <span class="panel-link" onclick="fetchByGenre('Fantasy'); setActiveChannel(this);">
+              <span class="panel-link-left"><span class="material-symbols-outlined">auto_fix_high</span> Fantasy & Isekai</span>
+            </span>
+            <span class="panel-link" onclick="fetchByGenre('Psychological'); setActiveChannel(this);">
+              <span class="panel-link-left"><span class="material-symbols-outlined">psychology</span> Psychological</span>
+            </span>
+            <span class="panel-link" onclick="fetchByGenre('Romance'); setActiveChannel(this);">
+              <span class="panel-link-left"><span class="material-symbols-outlined">favorite</span> Romance</span>
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="panel-title" style="margin-bottom: 0.6rem;">
+            <span class="material-symbols-outlined">rocket</span> Shortcuts
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <button class="btn-secondary" style="text-align: left; justify-content: flex-start;" onclick="openModal('directoryModal')">
+              <span class="material-symbols-outlined">public</span> Open Web Directory
+            </button>
+            <button class="btn-secondary" style="text-align: left; justify-content: flex-start;" onclick="openModal('donateModal')">
+              <span class="material-symbols-outlined">favorite</span> Support Servers
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Column: Discussion Post Composer, Filter Bar, & Rich Feed Cards -->
+      <section class="feed-column">
+        
+        <div class="post-composer-box">
+          <div class="composer-avatar">
+            <span class="material-symbols-outlined" style="font-size: 1.1rem;">edit</span>
+          </div>
+          <div class="composer-input-fake" onclick="openModal('profileModal')">
+            Create an episode reaction, share a theory, or start a discussion...
+          </div>
+        </div>
+
+        <div class="feed-filter-bar">
+          <div class="filter-pills-group">
+            <button class="feed-filter-btn active" onclick="sortFeedCards('hot', this)">
+              <span class="material-symbols-outlined">local_fire_department</span> Hot
+            </button>
+            <button class="feed-filter-btn" onclick="sortFeedCards('new', this)">
+              <span class="material-symbols-outlined">schedule</span> Newest
+            </button>
+            <button class="feed-filter-btn" onclick="sortFeedCards('top', this)">
+              <span class="material-symbols-outlined">military_tech</span> Top Rated
+            </button>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Showing Community Dispatches</span>
+        </div>
+
+        <div id="feedColumn" style="display: flex; flex-direction: column; gap: 1.25rem;"></div>
+      </section>
+
+      <!-- Right Column: Broadcast Today, Hashtags & Leaderboard -->
+      <aside class="aside-stack">
+        <div class="pulse-box">
+          <h3 class="panel-title">
+            <span class="material-symbols-outlined">calendar_today</span> Release Schedule
+          </h3>
+          <div id="airScheduleWidget">
+            <!-- Dynamic release highlights -->
+          </div>
+        </div>
+
+        <div class="pulse-box">
+          <h3 class="panel-title">
+            <span class="material-symbols-outlined">tag</span> Community Hashtags
+          </h3>
+          <div class="topic-chip-cloud">
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Action')">#ChainsawManMovie</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Fantasy')">#FrierenFinale</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Psychological')">#JujutsuKaisen254</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Action')">#SoloLevelingEp11</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Romance')">#ApothecaryDiaries</a>
+          </div>
+        </div>
+
+        <div class="pulse-box">
+          <h3 class="panel-title">
+            <span class="material-symbols-outlined">trophy</span> Weekly Top Posters
+          </h3>
+          <div class="leaderboard-row">
+            <div class="user-tag">
+              <span style="color: #ffd166;">🥇</span>
+              <span>u/AnimeHistorian</span>
+            </div>
+            <span class="karma-val">+3,420 karma</span>
+          </div>
+          <div class="leaderboard-row">
+            <div class="user-tag">
+              <span style="color: #cbd5e1;">🥈</span>
+              <span>u/ScanMaster</span>
+            </div>
+            <span class="karma-val">+2,890 karma</span>
+          </div>
+          <div class="leaderboard-row">
+            <div class="user-tag">
+              <span style="color: #d97706;">🥉</span>
+              <span>u/SakugaFanatic</span>
+            </div>
+            <span class="karma-val">+1,740 karma</span>
+          </div>
+        </div>
+      </aside>
+
     </div>
+  </main>
 
-    <!-- Media Cards Grid: Rendered Dynamically and Populated Instantly -->
-    <main class="grid" id="cardsGrid"></main>
+  <!-- MODALS -->
+  <div id="directoryModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 800px;">
+      <button class="modal-close" onclick="closeModal('directoryModal')">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h2>Web Directory</h2>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem;">Curated catalog of streaming, scanlations, lore wikis, and tools.</p>
+      
+      <div class="dir-modal-tabs">
+        <button class="dir-modal-tab active" onclick="filterDirectory('all', this)">All Links</button>
+        <button class="dir-modal-tab" onclick="filterDirectory('stream', this)">Streaming</button>
+        <button class="dir-modal-tab" onclick="filterDirectory('manga', this)">Scanlation</button>
+        <button class="dir-modal-tab" onclick="filterDirectory('database', this)">Wikis & DBs</button>
+      </div>
+
+      <table class="dir-table">
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody id="directoryTableBody"></tbody>
+      </table>
+    </div>
   </div>
 
-  <!-- Search Pop-up Overlay -->
-  <div class="overlay" id="searchOverlay">
-    <div class="search-modal">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="font-size: 1.15rem; font-weight: 700;">AniList & Media Search</h3>
-        <button class="icon-button" id="closeSearchBtn" style="width: 34px; height: 34px;">
-          <span class="material-symbols-rounded" style="font-size: 1.2rem;">close</span>
-        </button>
+  <div id="profileModal" class="modal-backdrop">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('profileModal')">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h2>User Profile</h2>
+      <div style="margin-top: 1rem; line-height: 2; font-size: 0.9rem; color: var(--text-muted);">
+        <div>Username: <strong style="color: var(--text);">Qwideyed</strong></div>
+        <div>Total Titles Saved in Stash: <strong id="profileStashCount" style="color: var(--accent);">0</strong></div>
+        <div>Contribution Score: <strong style="color: var(--accent-blue);">1,420 Karma</strong></div>
       </div>
+      <button class="btn-primary" style="margin-top: 1.5rem; width: 100%; justify-content: center;" onclick="clearLibrary()">
+        <span class="material-symbols-outlined">delete</span> Clear Stash
+      </button>
+    </div>
+  </div>
 
-      <div class="search-input-box">
-        <span class="material-symbols-rounded" style="color: var(--muted);" id="searchIndicator">search</span>
-        <input type="text" id="searchInput" placeholder="Search AniList anime, manga, 18+ or movies..." autocomplete="off" />
-        <select id="apiCategory" class="search-type-select">
-          <option value="anime">Anime (AniList)</option>
-          <option value="manga">Manga (AniList)</option>
-          <option value="hentai">Hentai 18+ (AniList)</option>
-          <option value="movie">Movies</option>
-          <option value="show">TV Shows</option>
-        </select>
-      </div>
-
-      <div class="results-list" id="searchResults">
-        <div style="text-align: center; color: var(--muted); padding: 2rem 0; font-size: 0.88rem;">
-          Type any title above to pull live results directly from the AniList API.
+  <div id="donateModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 700px;">
+      <button class="modal-close" onclick="closeModal('donateModal')">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h2>Support AllMyAni</h2>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem;">Help keep our database servers fast, uncensored, and ad-free.</p>
+      
+      <div class="tier-grid">
+        <div class="tier-card">
+          <h4>Kouhai</h4>
+          <div class="tier-price">$3<span style="font-size: 0.75rem;">/mo</span></div>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Supporter badge and Discord role.</p>
+          <button class="btn-secondary" style="margin-top: 1rem; justify-content: center;">Select</button>
+        </div>
+        <div class="tier-card featured">
+          <h4>Senpai</h4>
+          <div class="tier-price">$7<span style="font-size: 0.75rem;">/mo</span></div>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Custom avatar borders and ad-free browsing.</p>
+          <button class="btn-primary" style="margin-top: 1rem; justify-content: center;">Select</button>
+        </div>
+        <div class="tier-card">
+          <h4>Sensei</h4>
+          <div class="tier-price">$15<span style="font-size: 0.75rem;">/mo</span></div>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Name featured on footer + wiki flair.</p>
+          <button class="btn-secondary" style="margin-top: 1rem; justify-content: center;">Select</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Unified Script Engine -->
   <script>
-    /* Default seed data so your cards immediately show in the body */
-    const defaultData = [
-      {
-        id: "seed-1",
-        title: "Chainsaw Man",
-        type: "anime",
-        cover: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-NuQvliRFPLVO.png",
-        desc: "Denji has a simple dream—to live a happy and peaceful life, spending time with a girl he likes. This is a far cry from reality, however, as Denji is forced by the yakuza into killing devils in order to pay off his crushing debts.",
-        score: "8.5",
-        status: "Completed",
-        date: "Today"
-      },
-      {
-        id: "seed-2",
-        title: "Berserk",
-        type: "manga",
-        cover: "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30002-77asdpOtaiHO.jpg",
-        desc: "Guts, a former mercenary now known as the 'Black Swordsman,' is out for revenge. After a tumultuous childhood, he finally finds someone he respects and believes he can trust, only to have everything taken away.",
-        score: "9.4",
-        status: "In Progress",
-        date: "Today"
-      },
-      {
-        id: "seed-3",
-        title: "Inception",
-        type: "movie",
-        cover: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80",
-        desc: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project.",
-        score: "8.8",
-        status: "Completed",
-        date: "Yesterday"
+    const ANILIST_URL = 'https://graphql.anilist.co';
+    let currentMediaMode = 'ANIME';
+    let nsfwEnabled = false;
+
+    // Library State
+    let userLibrary = JSON.parse(localStorage.getItem('allmyani_stash')) || {};
+
+    function updateLibraryUI() {
+      const count = Object.keys(userLibrary).length;
+      document.getElementById('libCount').textContent = count;
+      document.getElementById('profileStashCount').textContent = count;
+
+      const targetGoal = 20;
+      const pct = Math.min(Math.round((count / targetGoal) * 100), 100);
+      const gaugeBar = document.getElementById('gaugeBar');
+      const gaugePercent = document.getElementById('gaugePercent');
+      if (gaugeBar && gaugePercent) {
+        gaugeBar.style.width = `${pct}%`;
+        gaugePercent.textContent = `${pct}%`;
       }
+    }
+    updateLibraryUI();
+
+    // Mode Switcher (Anime vs Manga)
+    const btnModeAnime = document.getElementById('btnModeAnime');
+    const btnModeManga = document.getElementById('btnModeManga');
+    const heroGrid = document.getElementById('heroGrid');
+    const radarCard = document.getElementById('radarCard');
+    const radarTitle = document.getElementById('radarTitle');
+    const radarIcon = document.getElementById('radarIcon');
+    const radarSub = document.getElementById('radarSub');
+
+    btnModeAnime.addEventListener('click', () => {
+      if (currentMediaMode === 'ANIME') return;
+      currentMediaMode = 'ANIME';
+      btnModeAnime.classList.add('active');
+      btnModeManga.classList.remove('active');
+      
+      // Update Radar Presentation to Anime Broadcast
+      radarTitle.textContent = 'Broadcast Radar';
+      radarIcon.textContent = 'radar';
+      radarSub.textContent = 'Live Ticker';
+      heroGrid.classList.remove('full-width');
+      radarCard.style.display = 'flex';
+
+      fetchAniListData();
+    });
+
+    btnModeManga.addEventListener('click', () => {
+      if (currentMediaMode === 'MANGA') return;
+      currentMediaMode = 'MANGA';
+      btnModeManga.classList.add('active');
+      btnModeAnime.classList.remove('active');
+
+      // Update Radar Presentation to Manga Chapter Drops
+      radarTitle.textContent = 'Chapter Radar';
+      radarIcon.textContent = 'auto_stories';
+      radarSub.textContent = 'Recent Releases';
+      heroGrid.classList.remove('full-width');
+      radarCard.style.display = 'flex';
+
+      fetchAniListData();
+    });
+
+    // 18+ Toggle Button
+    const nsfwBtn = document.getElementById('nsfwBtn');
+    const nsfwLabel = document.getElementById('nsfwLabel');
+
+    nsfwBtn.addEventListener('click', () => {
+      nsfwEnabled = !nsfwEnabled;
+      nsfwBtn.classList.toggle('active', nsfwEnabled);
+      nsfwLabel.textContent = nsfwEnabled ? '18+ ON' : '18+ OFF';
+      fetchAniListData();
+    });
+
+    // Notifications
+    let currentNotifFilter = 'all';
+    let notificationsList = JSON.parse(localStorage.getItem('allmyani_notifications')) || [
+      { id: 1, category: 'airing', icon: 'rocket_launch', iconColor: 'var(--accent-blue)', text: '<strong>Episode 28 of Frieren</strong> is now available to stream.', time: '12 minutes ago', read: false, link: 'entry.html?id=154587' },
+      { id: 2, category: 'community', icon: 'chat', iconColor: 'var(--accent)', text: '<strong>u/ScanMaster</strong> replied to your comment on <em>Jujutsu Kaisen</em>.', time: '1 hour ago', read: false, link: 'entry.html?id=105556#discussion' },
+      { id: 3, category: 'stash', icon: 'auto_awesome', iconColor: '#ffd166', text: 'Your tracked title <strong>Chainsaw Man</strong> had new staff confirmed.', time: '4 hours ago', read: false, link: 'entry.html?id=127230' }
     ];
 
-    /* Persistent local storage */
-    let library = JSON.parse(localStorage.getItem('omnitrack_vault_db'));
-    if (!library || library.length === 0) {
-      library = defaultData;
-      localStorage.setItem('omnitrack_vault_db', JSON.stringify(library));
-    }
-
-    let currentCategory = 'all';
-    let debounceTimer = null;
-
-    const cardsGrid = document.getElementById('cardsGrid');
-    const filterBtns = document.querySelectorAll('.pill-btn');
-    const nsfwBlur = document.getElementById('nsfwBlur');
-
-    const searchOverlay = document.getElementById('searchOverlay');
-    const openSearchBtn = document.getElementById('openSearchBtn');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
-    const searchInput = document.getElementById('searchInput');
-    const apiCategory = document.getElementById('apiCategory');
-    const searchResults = document.getElementById('searchResults');
-    const searchIndicator = document.getElementById('searchIndicator');
-
-    /* Render vault cards to grid */
-    function renderVault() {
-      cardsGrid.innerHTML = '';
-      const items = library.filter(i => currentCategory === 'all' || i.type === currentCategory);
-
-      if (items.length === 0) {
-        cardsGrid.innerHTML = `
-          <div class="empty-state">
-            <span class="material-symbols-rounded" style="font-size: 3.5rem; opacity: 0.3; margin-bottom: 0.5rem;">auto_stories</span>
-            <p>Your vault has no entries in this category. Click the search icon above to fetch titles via AniList!</p>
-          </div>
-        `;
-        return;
-      }
-
-      items.forEach(item => {
-        const isHentai = item.type === 'hentai';
-        const applyBlur = isHentai && nsfwBlur.checked;
-        const poster = item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80';
-        const cleanDesc = (item.desc || 'No description available.').replace(/<[^>]*>?/gm, '');
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="card-top">
-            <img src="${poster}" alt="${item.title}" class="card-thumb ${applyBlur ? 'blur-nsfw' : ''}" loading="lazy" />
-            <div class="card-top-info">
-              <div>
-                <h3 class="card-title" title="${item.title}">${item.title}</h3>
-                <div class="badge-row">
-                  <span class="tag accent">${item.type}</span>
-                  <span class="tag">${item.status || 'Saved'}</span>
-                </div>
-              </div>
-              <div class="rating">
-                <span class="material-symbols-rounded" style="font-size: 1.05rem;">star</span>
-                ${item.score || '9.0'}
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description" title="${cleanDesc}">${cleanDesc}</p>
-            <div class="card-footer">
-              <span>Added: ${item.date || 'Recently'}</span>
-              <button class="delete-action" onclick="removeEntry('${item.id}')" title="Delete">
-                <span class="material-symbols-rounded" style="font-size: 1.2rem;">delete</span>
-              </button>
-            </div>
-          </div>
-        `;
-        cardsGrid.appendChild(card);
-      });
-    }
-
-    /* Modal interactions */
-    openSearchBtn.onclick = () => {
-      searchOverlay.classList.add('active');
-      searchInput.focus();
-    };
-
-    closeSearchBtn.onclick = () => searchOverlay.classList.remove('active');
-
-    searchOverlay.onclick = (e) => {
-      if (e.target === searchOverlay) searchOverlay.classList.remove('active');
-    };
-
-    /* Live API Search */
-    searchInput.addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      const query = searchInput.value.trim();
-      const type = apiCategory.value;
-
-      if (query.length < 2) {
-        searchResults.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2rem 0;font-size:0.88rem;">Type to start searching AniList...</div>';
-        return;
-      }
-
-      debounceTimer = setTimeout(() => executeSearch(query, type), 300);
-    });
-
-    apiCategory.addEventListener('change', () => {
-      if (searchInput.value.trim().length >= 2) {
-        executeSearch(searchInput.value.trim(), apiCategory.value);
-      }
-    });
-
-    async function executeSearch(query, type) {
-      searchIndicator.style.animation = 'spin 1s linear infinite';
-      searchResults.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2rem 0;">Querying AniList...</div>';
-
-      try {
-        if (type === 'anime' || type === 'manga' || type === 'hentai') {
-          // AniList GraphQL Public API (No keys needed)
-          const anilistQuery = `
-            query ($q: String, $type: MediaType, $isAdult: Boolean) {
-              Page(perPage: 6) {
-                media(search: $q, type: $type, isAdult: $isAdult) {
-                  id
-                  title { english romaji }
-                  coverImage { large }
-                  description
-                  averageScore
-                }
-              }
-            }
-          `;
-
-          const variables = {
-            q: query,
-            type: type === 'manga' ? 'MANGA' : 'ANIME',
-            isAdult: type === 'hentai'
-          };
-
-          const res = await fetch('https://graphql.anilist.co', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ query: anilistQuery, variables })
-          });
-
-          const json = await res.json();
-          const list = json?.data?.Page?.media || [];
-          renderResults(list.map(m => ({
-            title: m.title.english || m.title.romaji,
-            cover: m.coverImage.large,
-            desc: m.description,
-            score: m.averageScore ? (m.averageScore / 10).toFixed(1) : '8.5',
-            type: type
-          })));
-
-        } else if (type === 'show') {
-          const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`);
-          const json = await res.json();
-          renderResults(json.slice(0, 6).map(s => ({
-            title: s.show.name,
-            cover: s.show.image?.medium || s.show.image?.original || '',
-            desc: s.show.summary,
-            score: s.show.rating?.average ? s.show.rating.average.toFixed(1) : '8.0',
-            type: 'show'
-          })));
-
-        } else if (type === 'movie') {
-          const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=movie&limit=6`);
-          const json = await res.json();
-          renderResults((json.results || []).map(m => ({
-            title: m.trackName,
-            cover: m.artworkUrl100 ? m.artworkUrl100.replace('100x100bb', '600x600bb') : '',
-            desc: m.longDescription || 'No movie description available.',
-            score: '8.2',
-            type: 'movie'
-          })));
-        }
-      } catch (err) {
-        searchResults.innerHTML = '<div style="text-align:center;color:var(--danger);padding:2rem 0;">Network error. Please try again.</div>';
-      } finally {
-        searchIndicator.style.animation = 'none';
+    function updateNotifBadge() {
+      const unreadCount = notificationsList.filter(n => !n.read).length;
+      const pill = document.getElementById('notifBadgePill');
+      if (pill) {
+        pill.textContent = unreadCount;
+        pill.style.display = unreadCount > 0 ? 'block' : 'none';
       }
     }
 
-    function renderResults(items) {
-      if (!items || items.length === 0) {
-        searchResults.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2rem 0;">No matching titles found.</div>';
+    function saveNotifications() {
+      localStorage.setItem('allmyani_notifications', JSON.stringify(notificationsList));
+      updateNotifBadge();
+    }
+
+    function openNotifModal() {
+      openModal('notifModal');
+      renderNotifications();
+    }
+
+    function renderNotifications() {
+      const stream = document.getElementById('notifStream');
+      stream.innerHTML = '';
+      const filtered = currentNotifFilter === 'all' ? notificationsList : notificationsList.filter(n => n.category === currentNotifFilter);
+
+      if (filtered.length === 0) {
+        stream.innerHTML = `<div style="padding: 3rem; text-align: center; color: var(--text-muted);">No notifications.</div>`;
         return;
       }
 
-      searchResults.innerHTML = '';
-      items.forEach(item => {
+      filtered.forEach(item => {
         const row = document.createElement('div');
-        row.className = 'result-row';
+        row.className = `notif-card ${item.read ? '' : 'unread'}`;
         row.innerHTML = `
-          <img src="${item.cover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&q=80'}" class="result-thumb" />
-          <div class="result-info">
-            <h4>${item.title}</h4>
-            <p>${(item.desc || '').replace(/<[^>]*>?/gm, '')}</p>
+          <div class="notif-avatar-icon">
+            <span class="material-symbols-outlined" style="color: ${item.iconColor}; font-size: 1.15rem;">${item.icon}</span>
           </div>
-          <span class="save-badge">
-            <span class="material-symbols-rounded" style="font-size: 1rem;">add</span> Add
-          </span>
+          <div class="notif-content-wrap">
+            <div class="notif-text">${item.text}</div>
+            <div class="notif-time">${item.time}</div>
+          </div>
         `;
         row.onclick = () => {
-          addEntryToVault(item);
-          searchOverlay.classList.remove('active');
+          item.read = true;
+          saveNotifications();
+          if (item.link) window.location.href = item.link;
         };
-        searchResults.appendChild(row);
+        stream.appendChild(row);
       });
     }
 
-    function addEntryToVault(item) {
-      library.unshift({
-        id: Date.now().toString(),
-        title: item.title,
-        type: item.type,
-        cover: item.cover,
-        desc: item.desc,
-        score: item.score,
-        status: 'In Progress',
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-      });
-      saveDB();
-      renderVault();
+    function filterNotifications(cat, btn) {
+      currentNotifFilter = cat;
+      document.querySelectorAll('.notif-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderNotifications();
     }
 
-    window.removeEntry = function(id) {
-      library = library.filter(i => i.id !== id);
-      saveDB();
-      renderVault();
+    function markAllNotificationsRead() {
+      notificationsList.forEach(n => n.read = true);
+      saveNotifications();
+      renderNotifications();
+    }
+
+    function clearAllNotifications() {
+      if (confirm('Clear all notifications?')) {
+        notificationsList = [];
+        saveNotifications();
+        renderNotifications();
+      }
+    }
+    updateNotifBadge();
+
+    // Directory
+    const directoryData = [
+      { name: 'Crunchyroll', cat: 'stream', type: 'Official', url: 'https://crunchyroll.com' },
+      { name: 'MangaDex', cat: 'manga', type: 'Community', url: 'https://mangadex.org' },
+      { name: 'AniList', cat: 'database', type: 'API & Tracker', url: 'https://anilist.co' },
+      { name: 'VNDB', cat: 'database', type: 'Visual Novels', url: 'https://vndb.org' },
+      { name: 'MyAnimeList', cat: 'database', type: 'Tracker', url: 'https://myanimelist.net' }
+    ];
+
+    function renderDirectory(items) {
+      const tbody = document.getElementById('directoryTableBody');
+      tbody.innerHTML = '';
+      items.forEach(item => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${item.name}</strong></td>
+            <td><span class="badge">${item.cat}</span></td>
+            <td>${item.type}</td>
+            <td><a href="${item.url}" target="_blank">Visit <span class="material-symbols-outlined" style="font-size: 1rem;">open_in_new</span></a></td>
+          </tr>
+        `;
+      });
+    }
+    renderDirectory(directoryData);
+
+    function filterDirectory(cat, btn) {
+      document.querySelectorAll('.dir-modal-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderDirectory(cat === 'all' ? directoryData : directoryData.filter(d => d.cat === cat));
+    }
+
+    function openModal(id) { 
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'flex'; 
+    }
+    function closeModal(id) { 
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none'; 
+    }
+    window.onclick = function(e) {
+      if (e.target.classList.contains('modal-backdrop')) e.target.style.display = 'none';
     };
 
-    function saveDB() {
-      localStorage.setItem('omnitrack_vault_db', JSON.stringify(library));
+    // Search Discovery Modal
+    const searchModal = document.getElementById('searchModal');
+    const modalSearchInput = document.getElementById('modalSearchInput');
+    const modalResultsList = document.getElementById('modalResultsList');
+    let searchDebounceTimer = null;
+
+    function openSearchModal() {
+      if (!searchModal) return;
+      searchModal.style.display = 'flex';
+      modalSearchInput.focus();
+      if (modalSearchInput.value.trim().length >= 2) runFilterSearch();
+    }
+    function closeSearchModal() { 
+      if (searchModal) searchModal.style.display = 'none'; 
+    }
+    function handleSearchBackdrop(e) { 
+      if (e.target.id === 'searchModal') closeSearchModal(); 
     }
 
-    /* Filter pills */
-    filterBtns.forEach(btn => {
-      btn.onclick = () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentCategory = btn.getAttribute('data-filter');
-        renderVault();
-      };
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openSearchModal();
+      } else if (e.key === 'Escape' && searchModal && searchModal.style.display === 'flex') {
+        closeSearchModal();
+      }
     });
 
-    nsfwBlur.onchange = () => renderVault();
+    function toggleChip(btn) {
+      const filterGroup = btn.getAttribute('data-filter');
+      if (filterGroup === 'format') {
+        document.querySelectorAll(`.filter-chip[data-filter="format"]`).forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+      } else {
+        btn.classList.toggle('active');
+      }
+      runFilterSearch();
+    }
 
-    /* Backup Import & Export */
-    document.getElementById('exportBtn').onclick = () => {
-      if (library.length === 0) return alert('Vault is empty.');
-      const blob = new Blob([JSON.stringify(library, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `omnitrack_backup_${new Date().toISOString().slice(0, 10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-    };
+    modalSearchInput.addEventListener('input', () => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(runFilterSearch, 300);
+    });
 
-    document.getElementById('fileInput').onchange = (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const imported = JSON.parse(event.target.result);
-          if (Array.isArray(imported)) {
-            const existing = new Set(library.map(i => i.id));
-            const fresh = imported.filter(i => !existing.has(i.id));
-            library = [...fresh, ...library];
-            saveDB();
-            renderVault();
-            alert(`Imported ${fresh.length} entries!`);
+    const modalSearchQuery = `
+      query ($search: String, $format: MediaFormat, $genre: String, $sort: [MediaSort], $isAdult: Boolean) {
+        Page(page: 1, perPage: 10) {
+          media(search: $search, format: $format, genre: $genre, sort: $sort, isAdult: $isAdult) {
+            id
+            title { english romaji }
+            coverImage { medium large }
+            format
+            seasonYear
+            averageScore
+            genres
+            episodes
+            chapters
+            isAdult
           }
-        } catch (err) {
-          alert('Could not read JSON backup file.');
         }
-      };
-      reader.readAsText(file);
-      e.target.value = '';
-    };
+      }
+    `;
 
-    // Load initial seed cards immediately
-    renderVault();
+    async function runFilterSearch() {
+      const q = modalSearchInput.value.trim();
+      const activeFormatChip = document.querySelector(`.filter-chip[data-filter="format"].active`);
+      const formatVal = activeFormatChip ? activeFormatChip.getAttribute('data-val') : null;
+      const activeGenreChips = Array.from(document.querySelectorAll(`.filter-chip[data-filter="genre"].active`));
+      const genreVal = activeGenreChips.length > 0 ? activeGenreChips[0].getAttribute('data-val') : null;
+      const sortVal = document.getElementById('modalSortSelect').value;
+      const isAdultVal = document.getElementById('modalNsfwCheck').checked;
+
+      modalResultsList.innerHTML = `<div class="search-status-box"><span class="material-symbols-outlined" style="font-size: 2.2rem; color: var(--accent);">sync</span><span>Searching AniList...</span></div>`;
+
+      try {
+        const res = await fetch(ANILIST_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            query: modalSearchQuery,
+            variables: {
+              search: q.length > 0 ? q : undefined,
+              format: formatVal || undefined,
+              genre: genreVal || undefined,
+              sort: [sortVal],
+              isAdult: isAdultVal
+            }
+          })
+        });
+        const json = await res.json();
+        renderModalSearchResults(json.data.Page.media);
+      } catch (err) {
+        modalResultsList.innerHTML = `<div class="search-status-box">Error fetching search results.</div>`;
+      }
+    }
+
+    function renderModalSearchResults(items) {
+      if (!items || items.length === 0) {
+        modalResultsList.innerHTML = `<div class="search-status-box"><span class="material-symbols-outlined" style="font-size: 2.2rem;">search_off</span><span>No titles found.</span></div>`;
+        return;
+      }
+      modalResultsList.innerHTML = '';
+      items.forEach(item => {
+        const title = item.title.english || item.title.romaji;
+        const score = item.averageScore ? `★ ${(item.averageScore / 10).toFixed(1)}` : '★ --';
+        const year = item.seasonYear || '';
+        const fmt = item.format ? item.format.replace('_', ' ') : 'Media';
+        const genres = item.genres ? item.genres.slice(0, 3).join(' • ') : '';
+
+        const card = document.createElement('div');
+        card.className = 'modal-result-card';
+        card.innerHTML = `
+          <div class="result-lead">
+            <img class="result-thumb" src="${item.coverImage.medium}" alt="${title}">
+            <div class="result-info">
+              <div class="result-title" title="${title}">${title}</div>
+              <div class="result-tags">
+                <span class="badge" style="padding: 0.1rem 0.4rem;">${fmt}</span>
+                <span>${year}</span>
+                <span style="color: #ffd166;">${score}</span>
+                <span>${genres}</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn-quick-stash" onclick="quickStashFromModal(event, ${item.id})">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">add</span> Stash
+          </button>
+        `;
+        card.onclick = (e) => {
+          if (!e.target.closest('.btn-quick-stash')) window.location.href = `entry.html?id=${item.id}`;
+        };
+        modalResultsList.appendChild(card);
+      });
+    }
+
+    function quickStashFromModal(e, id) {
+      e.stopPropagation();
+      userLibrary[id] = (userLibrary[id] || 0) + 1;
+      localStorage.setItem('allmyani_stash', JSON.stringify(userLibrary));
+      updateLibraryUI();
+      const btn = e.currentTarget;
+      btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 1rem;">check</span> Saved`;
+      btn.style.background = 'var(--accent-green)';
+      btn.style.borderColor = 'var(--accent-green)';
+    }
+
+    // Spotlight
+    let spotlightItems = [];
+    let spotlightIndex = 0;
+    let spotlightTimer = null;
+
+    function renderSpotlightDots() {
+      const container = document.getElementById('spotlightDots');
+      container.innerHTML = '';
+      spotlightItems.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = `spotlight-dot ${idx === spotlightIndex ? 'active' : ''}`;
+        dot.onclick = () => showSpotlightSlide(idx);
+        container.appendChild(dot);
+      });
+    }
+
+    function showSpotlightSlide(index) {
+      if (!spotlightItems || spotlightItems.length === 0) return;
+      spotlightIndex = (index + spotlightItems.length) % spotlightItems.length;
+
+      const item = spotlightItems[spotlightIndex];
+      const title = item.title.english || item.title.romaji;
+      const cleanDesc = item.description ? item.description.replace(/<[^>]*>?/gm, '') : 'No synopsis available.';
+      const banner = item.bannerImage || item.coverImage.extraLarge;
+
+      document.getElementById('spotlightTitle').textContent = title;
+      document.getElementById('spotlightSynopsis').textContent = cleanDesc;
+      document.getElementById('spotlightRankLabel').textContent = `#${spotlightIndex + 1} Trending Spotlight`;
+      document.getElementById('spotlightDiscussionBtn').href = `entry.html?id=${item.id}`;
+
+      if (banner) {
+        document.getElementById('spotlightContainer').style.backgroundImage = `url('${banner}')`;
+      }
+      renderSpotlightDots();
+    }
+
+    function openSpotlightEntry() {
+      if (spotlightItems && spotlightItems[spotlightIndex]) {
+        window.location.href = `entry.html?id=${spotlightItems[spotlightIndex].id}`;
+      }
+    }
+
+    function nextSpotlightSlide() { showSpotlightSlide(spotlightIndex + 1); }
+    function prevSpotlightSlide() { showSpotlightSlide(spotlightIndex - 1); }
+
+    function startSpotlightRotation() {
+      stopSpotlightRotation();
+      spotlightTimer = setInterval(nextSpotlightSlide, 5000);
+    }
+    function stopSpotlightRotation() { if (spotlightTimer) clearInterval(spotlightTimer); }
+
+    const spotlightContainer = document.getElementById('spotlightContainer');
+    spotlightContainer.addEventListener('mouseenter', stopSpotlightRotation);
+    spotlightContainer.addEventListener('mouseleave', startSpotlightRotation);
+
+    // Live Precise Airing Countdown
+    let liveCountdownTimer = null;
+    let airingMediaTracker = [];
+
+    function formatPreciseTime(totalSeconds) {
+      if (totalSeconds <= 0) return 'Airing Now!';
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      let parts = [];
+      if (days > 0) parts.push(`${days}d`);
+      parts.push(`${hours}h`);
+      parts.push(`${minutes}m`);
+      parts.push(`${seconds}s`);
+      return parts.join(' ');
+    }
+
+    function startLiveCountdown() {
+      if (liveCountdownTimer) clearInterval(liveCountdownTimer);
+      liveCountdownTimer = setInterval(() => {
+        airingMediaTracker.forEach((item, idx) => {
+          if (item.secondsRemaining > 0) {
+            item.secondsRemaining--;
+            const el = document.getElementById(`countdown-${idx}`);
+            if (el) {
+              el.innerHTML = `<span class="material-symbols-outlined" style="font-size: 0.9rem;">timer</span> ${formatPreciseTime(item.secondsRemaining)}`;
+            }
+          }
+        });
+      }, 1000);
+    }
+
+    // AniList GraphQL Primary Query
+    const mediaQuery = `
+      query ($isAdult: Boolean, $type: MediaType, $genre: String) {
+        Page(page: 1, perPage: 24) {
+          media(sort: TRENDING_DESC, type: $type, isAdult: $isAdult, genre: $genre) {
+            id
+            title { english romaji }
+            coverImage { large extraLarge }
+            bannerImage
+            description(asHtml: false)
+            episodes
+            chapters
+            status
+            averageScore
+            genres
+            isAdult
+            nextAiringEpisode { episode timeUntilAiring }
+          }
+        }
+      }
+    `;
+
+    async function fetchAniListData(genre = null) {
+      const apiStatus = document.getElementById('apiStatus');
+      apiStatus.textContent = currentMediaMode === 'ANIME' ? 'Fetching Airing Anime...' : 'Fetching Manga Releases...';
+      
+      const variables = { isAdult: nsfwEnabled, type: currentMediaMode, genre: genre || undefined };
+
+      try {
+        const res = await fetch(ANILIST_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ query: mediaQuery, variables })
+        });
+        const json = await res.json();
+        const list = json.data.Page.media;
+        
+        // Dynamic Ticker Label based on Mode and Adult Filter
+        let tickerMsg = '';
+        if (currentMediaMode === 'ANIME') {
+          tickerMsg = nsfwEnabled 
+            ? `18+ Anime Vault • ${list.length} Titles Active` 
+            : `📺 Broadcast Radar • ${list.length} Airing Titles Loaded`;
+        } else {
+          tickerMsg = nsfwEnabled 
+            ? `18+ Manga Vault • ${list.length} Volumes Active` 
+            : `📖 Publishing Radar • ${list.length} Manga Releases Loaded`;
+        }
+        apiStatus.textContent = tickerMsg;
+
+        renderPage(list);
+      } catch (err) {
+        apiStatus.textContent = 'AniList API Offline';
+      }
+    }
+
+    function fetchByGenre(genre) { fetchAniListData(genre); }
+
+    function setActiveChannel(el) {
+      document.querySelectorAll('.panel-link').forEach(link => link.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    const mockPosters = [
+      { name: 'u/KeiichiroBuff', badge: 'Sakuga Contributor', time: '14m ago' },
+      { name: 'u/DomainClash', badge: 'Manga Reader', time: '1h ago' },
+      { name: 'u/ScanMaster', badge: 'Verified Lorekeeper', time: '3h ago' },
+      { name: 'u/HimmelStan', badge: 'Mage Guild', time: '5h ago' },
+      { name: 'u/ZoltraakCaster', badge: 'Episode Lead', time: '8h ago' }
+    ];
+
+    function renderPage(list) {
+      if (!list || list.length === 0) return;
+
+      // 1. Spotlight Banner (Items 0 to 9)
+      spotlightItems = list.slice(0, 10);
+      showSpotlightSlide(0);
+      startSpotlightRotation();
+
+      // 2. Adaptive Radar Deck (Broadcast Radar for Anime, Chapter Radar for Manga)
+      const radarList = document.getElementById('radarList');
+      radarList.innerHTML = '';
+      airingMediaTracker = [];
+
+      if (currentMediaMode === 'ANIME') {
+        const airingMatches = list.filter(m => m.nextAiringEpisode);
+        if (airingMatches.length > 0) {
+          airingMatches.slice(0, 4).forEach((m, idx) => {
+            const title = m.title.english || m.title.romaji;
+            airingMediaTracker.push({ id: m.id, secondsRemaining: m.nextAiringEpisode.timeUntilAiring });
+            radarList.innerHTML += `
+              <div class="radar-item" onclick="window.location.href='entry.html?id=${m.id}'">
+                <div>
+                  <div class="radar-item-name" title="${title}">${title}</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Ep ${m.nextAiringEpisode.episode}</div>
+                </div>
+                <div class="radar-countdown" id="countdown-${idx}">
+                  <span class="material-symbols-outlined" style="font-size: 0.9rem;">timer</span>
+                  ${formatPreciseTime(m.nextAiringEpisode.timeUntilAiring)}
+                </div>
+              </div>
+            `;
+          });
+          startLiveCountdown();
+        } else {
+          radarList.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem 0;">No broadcast timers in this view.</div>';
+        }
+      } else {
+        // MANGA MODE: Show recently updated chapters / volumes
+        list.slice(0, 4).forEach(m => {
+          const title = m.title.english || m.title.romaji;
+          const chapters = m.chapters ? `Ch. ${m.chapters}` : 'Publishing';
+          radarList.innerHTML += `
+            <div class="radar-item" onclick="window.location.href='entry.html?id=${m.id}'">
+              <div>
+                <div class="radar-item-name" title="${title}">${title}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">${chapters}</div>
+              </div>
+              <div class="radar-countdown" style="color: var(--accent-green);">
+                <span class="material-symbols-outlined" style="font-size: 0.9rem;">check_circle</span>
+                Active
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Update right sidebar schedule widget
+      const scheduleWidget = document.getElementById('airScheduleWidget');
+      scheduleWidget.innerHTML = '';
+      list.slice(0, 3).forEach(item => {
+        const title = item.title.english || item.title.romaji;
+        const sub = currentMediaMode === 'ANIME' 
+          ? (item.nextAiringEpisode ? `Episode ${item.nextAiringEpisode.episode}` : 'Currently Airing')
+          : (item.chapters ? `${item.chapters} Chapters` : 'Ongoing Series');
+
+        scheduleWidget.innerHTML += `
+          <div class="air-schedule-item" onclick="window.location.href='entry.html?id=${item.id}'">
+            <img class="air-thumb" src="${item.coverImage.large}" alt="${title}">
+            <div class="air-info">
+              <div class="air-title">${title}</div>
+              <div class="air-meta">
+                <span class="material-symbols-outlined" style="font-size: 0.85rem;">${currentMediaMode === 'ANIME' ? 'timer' : 'auto_stories'}</span>
+                ${sub}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      // 3. Static Shelf Grid (Items 10 to 15)
+      const shelf = document.getElementById('shelfGrid');
+      shelf.innerHTML = '';
+      list.slice(10, 16).forEach(item => {
+        const title = item.title.english || item.title.romaji;
+        const score = item.averageScore ? (item.averageScore / 10).toFixed(1) : '--';
+        const unit = currentMediaMode === 'ANIME' ? `${item.episodes || '?'} eps` : `${item.chapters || '?'} ch`;
+
+        shelf.innerHTML += `
+          <div class="shelf-card" onclick="window.location.href='entry.html?id=${item.id}'">
+            <div class="shelf-poster">
+              <span class="shelf-score">
+                <span class="material-symbols-outlined">star</span> ${score}
+              </span>
+              <img src="${item.coverImage.large}" alt="${title}">
+            </div>
+            <div class="shelf-meta">
+              <div class="shelf-name" title="${title}">${title}</div>
+              <div class="shelf-sub">${unit} • ${item.genres[0] || 'Media'}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      // 4. Center Feed (Items 16 to 24)
+      const feed = document.getElementById('feedColumn');
+      feed.innerHTML = '';
+
+      list.slice(16).forEach((item, idx) => {
+        const title = item.title.english || item.title.romaji;
+        const score = item.averageScore ? (item.averageScore / 10).toFixed(1) : '--';
+        const cleanDesc = item.description ? item.description.replace(/<[^>]*>?/gm, '') : 'Join community discussion on AllMyAni.';
+        const maxUnit = currentMediaMode === 'ANIME' ? (item.episodes || '?') : (item.chapters || '?');
+        const userProgress = userLibrary[item.id] || 0;
+        const poster = mockPosters[idx % mockPosters.length];
+        const unitLabel = currentMediaMode === 'ANIME' ? 'Episode' : 'Chapter';
+
+        feed.innerHTML += `
+          <article class="stream-card">
+            <div class="card-thumb" onclick="window.location.href='entry.html?id=${item.id}'">
+              <img src="${item.coverImage.large}" alt="${title}">
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-post-header">
+                  <div class="post-user-avatar">${poster.name.charAt(2).toUpperCase()}</div>
+                  <span class="post-author-name">${poster.name}</span>
+                  <span class="badge" style="font-size: 0.65rem; padding: 0.1rem 0.35rem;">${poster.badge}</span>
+                  <span class="post-time">• ${poster.time}</span>
+                </div>
+                <div class="card-meta">
+                  <span class="badge">${item.genres[0] || 'Media'}</span>
+                  <span class="badge">
+                    <span class="material-symbols-outlined" style="font-size: 0.8rem; color: #ffd166;">star</span> ${score}
+                  </span>
+                  ${item.isAdult ? '<span class="badge" style="color: var(--nsfw);">18+</span>' : ''}
+                </div>
+                <h2 class="card-title" onclick="window.location.href='entry.html?id=${item.id}'">${title} - ${unitLabel} Discussion Hub</h2>
+                <p class="card-snippet">${cleanDesc}</p>
+              </div>
+              <div class="card-footer">
+                <div class="interaction-pills">
+                  <div class="vote-pill">
+                    <button onclick="vote(this, 1)">
+                      <span class="material-symbols-outlined">arrow_upward</span>
+                    </button>
+                    <span class="vote-val">${Math.floor(Math.random() * 600) + 80}</span>
+                    <button onclick="vote(this, -1)">
+                      <span class="material-symbols-outlined">arrow_downward</span>
+                    </button>
+                  </div>
+                  <a href="entry.html?id=${item.id}#discussion" class="comment-pill">
+                    <span class="material-symbols-outlined">chat</span> ${Math.floor(Math.random() * 120) + 14} Comments
+                  </a>
+                </div>
+                <div class="quick-track-pill">
+                  <span>Progress: <strong class="ep-val">${userProgress}</strong>/${maxUnit}</span>
+                  <button class="step-btn" onclick="stepProgress(${item.id}, this)">
+                    <span class="material-symbols-outlined">add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+    }
+
+    function sortFeedCards(type, btn) {
+      document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      fetchAniListData();
+    }
+
+    function stepProgress(id, btn) {
+      const valEl = btn.parentElement.querySelector('.ep-val');
+      let current = parseInt(valEl.textContent, 10) + 1;
+      valEl.textContent = current;
+      userLibrary[id] = current;
+      localStorage.setItem('allmyani_stash', JSON.stringify(userLibrary));
+      updateLibraryUI();
+    }
+
+    function trackCurrentSpotlight() {
+      if (!spotlightItems[spotlightIndex]) return;
+      const current = spotlightItems[spotlightIndex];
+      userLibrary[current.id] = (userLibrary[current.id] || 0) + 1;
+      localStorage.setItem('allmyani_stash', JSON.stringify(userLibrary));
+      updateLibraryUI();
+      alert(`Tracked "${current.title.english || current.title.romaji}"!`);
+    }
+
+    function clearLibrary() {
+      if (confirm('Clear library?')) {
+        userLibrary = {};
+        localStorage.removeItem('allmyani_stash');
+        updateLibraryUI();
+        fetchAniListData();
+        closeModal('profileModal');
+      }
+    }
+
+    function vote(btn, delta) {
+      const display = btn.parentElement.querySelector('.vote-val');
+      display.textContent = parseInt(display.textContent, 10) + delta;
+      btn.style.color = delta > 0 ? 'var(--accent)' : '#38bdf8';
+    }
+
+    // Initial Load
+    fetchAniListData();
   </script>
 </body>
 </html>
