@@ -3,47 +3,469 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Website</title>
+  <title>Developer & Creator Hub</title>
+
+  <!-- Google Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* --- CSS Variables & Reset --- */
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 30, 49, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --bubble-bg: #1e293b;
+      --bubble-hover: #2e3d57;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
     body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 2.5rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12), transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 860px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* --- Profile Header (Bubble Card) --- */
+    .profile-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 2.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      display: flex;
+      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
-    }
-    .card {
-      background: #1e293b;
-      padding: 2.5rem;
-      border-radius: 1.25rem;
-      max-width: 480px;
-      border: 1px solid #334155;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
-    h1 { color: #38bdf8; margin-bottom: 0.75rem; }
-    p { color: #94a3b8; line-height: 1.6; margin-bottom: 1.5rem; }
-    .badge {
-      display: inline-block;
-      padding: 0.4rem 1rem;
-      border-radius: 999px;
-      background: #0284c7;
+      font-size: 2.2rem;
+      font-weight: 700;
       color: #fff;
-      font-size: 0.85rem;
+      box-shadow: 0 0 20px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .name-row h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
       font-weight: 600;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #34d399;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #34d399;
+    }
+
+    .profile-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #04101e;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+    }
+
+    /* --- Skills Pill Bar --- */
+    .skills-section h2, .projects-section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #e2e8f0;
+    }
+
+    .bubble-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .bubble-pill {
+      background: var(--bubble-bg);
+      border: 1px solid var(--card-border);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .bubble-pill:hover {
+      background: var(--bubble-hover);
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* --- Project Grid --- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-card h3 {
+      font-size: 1.15rem;
+    }
+
+    .project-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .mini-tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+    }
+
+    /* --- Modal Overlay --- */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 10;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #131b2e;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      position: relative;
+    }
+
+    .modal-backdrop.active .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .modal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .link-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bubble-bg);
+      border: 1px solid var(--card-border);
+      padding: 0.75rem 1rem;
+      border-radius: 14px;
+      color: #f1f5f9;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .link-pill:hover {
+      background: var(--bubble-hover);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent);
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <span class="badge">Live on GitHub Pages</span>
-    <h1 style="margin-top: 1rem;">Hello World!</h1>
-    <p>My new website is live with $0 spent on hosting or domain costs.</p>
+
+  <main class="container">
+    <!-- Profile Card Header -->
+    <header class="profile-card">
+      <div class="avatar">Q</div>
+      <div class="profile-info">
+        <div class="name-row">
+          <h1>Qwideyed</h1>
+          <span class="status-badge">
+            <span class="status-dot"></span> Online
+          </span>
+        </div>
+        <p class="profile-desc">
+          Frontend developer & interface enthusiast crafting modern UI dashboards, single-page web experiences, and interactive web tools.
+        </p>
+        <button class="action-btn" id="openModalBtn">
+          <span class="material-symbols-rounded">chat</span> Get in Touch
+        </button>
+      </div>
+    </header>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+      <h2>
+        <span class="material-symbols-rounded" style="color: var(--accent);">bolt</span>
+        Toolkit & Interests
+      </h2>
+      <div class="bubble-wrap">
+        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">code</span> HTML & CSS</span>
+        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">javascript</span> Modern JS</span>
+        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">palette</span> UI Design</span>
+        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">api</span> AniList & Web APIs</span>
+        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">terminal</span> Lua Scripting</span>
+        <span class="bubble-pill"><span class="material-symbols-rounded" style="font-size: 1rem;">gamepad</span> Game Dev</span>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-section">
+      <h2>
+        <span class="material-symbols-rounded" style="color: var(--accent);">grid_view</span>
+        Featured Builds
+      </h2>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="card-icon">
+            <span class="material-symbols-rounded">movie</span>
+          </div>
+          <h3>Media & Anime Trackers</h3>
+          <p>Single-page interfaces fetching media synopses, live trending lists, and art directly from open public APIs.</p>
+          <div class="card-tags">
+            <span class="mini-tag">API Integration</span>
+            <span class="mini-tag">Vanilla JS</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="card-icon">
+            <span class="material-symbols-rounded">schedule</span>
+          </div>
+          <h3>Interactive Timelines</h3>
+          <p>Searchable dynamic date lookups, historical event feeds, and lightweight modal architectures.</p>
+          <div class="card-tags">
+            <span class="mini-tag">Dark Mode</span>
+            <span class="mini-tag">Single File</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="card-icon">
+            <span class="material-symbols-rounded">extension</span>
+          </div>
+          <h3>Gaming Tools & Scripts</h3>
+          <p>Lightweight companion calculators, user guides, and script experiments for online sandbox platforms.</p>
+          <div class="card-tags">
+            <span class="mini-tag">Tooling</span>
+            <span class="mini-tag">Lua</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Connect / Modal Overlay -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-box">
+      <button class="modal-close" id="closeModalBtn">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+      <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Let's Connect</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Find my latest builds, repositories, and community channels below.</p>
+      
+      <div class="modal-links">
+        <a href="https://github.com" target="_blank" class="link-pill">
+          <span class="material-symbols-rounded" style="color: var(--accent);">code_blocks</span> GitHub Profile
+        </a>
+        <a href="https://discord.com" target="_blank" class="link-pill">
+          <span class="material-symbols-rounded" style="color: #818cf8;">forum</span> Discord Community
+        </a>
+        <a href="mailto:contact@example.com" class="link-pill">
+          <span class="material-symbols-rounded" style="color: #34d399;">mail</span> Send an Email
+        </a>
+      </div>
+    </div>
   </div>
+
+  <script>
+    // Modal Open / Close Logic
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modalBackdrop');
+
+    openBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // Close modal if user clicks outside the modal card
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>
