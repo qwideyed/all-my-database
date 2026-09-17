@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AllMyAni - Live Media, Wiki & Community Hub</title>
   
   <!-- Google Material Symbols Outlined -->
@@ -33,6 +33,7 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -42,6 +43,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     .material-symbols-outlined {
@@ -83,6 +86,7 @@
       color: var(--text);
       text-decoration: none;
       letter-spacing: -0.6px;
+      white-space: nowrap;
     }
 
     .brand span { color: var(--accent); }
@@ -107,6 +111,7 @@
       border-radius: 16px;
       cursor: pointer;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .mode-btn.active { 
@@ -135,6 +140,7 @@
       display: flex;
       align-items: center;
       gap: 0.25rem;
+      white-space: nowrap;
     }
 
     .dropdown-btn:hover,
@@ -171,6 +177,7 @@
       font-weight: 500;
       border-radius: 6px;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .dropdown-item:hover {
@@ -188,6 +195,7 @@
       border-radius: 20px;
       font-size: 0.75rem;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
     .ticker-pulse {
@@ -196,6 +204,7 @@
       border-radius: 50%;
       background: #10b981;
       box-shadow: 0 0 8px #10b981;
+      flex-shrink: 0;
     }
 
     .header-right {
@@ -220,6 +229,7 @@
       gap: 0.4rem;
       transition: all 0.2s ease;
       user-select: none;
+      white-space: nowrap;
     }
 
     .nsfw-indicator {
@@ -260,6 +270,7 @@
       justify-content: center;
       position: relative;
       transition: all 0.2s;
+      flex-shrink: 0;
     }
 
     .icon-btn:hover {
@@ -294,6 +305,13 @@
       align-items: center;
       justify-content: center;
       color: white;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: transform 0.15s;
+    }
+
+    .avatar-btn:hover {
+      transform: scale(1.05);
     }
 
     .avatar-btn .material-symbols-outlined { font-size: 1.2rem; }
@@ -386,6 +404,8 @@
       padding: 0.75rem 1.5rem;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .notif-tab {
@@ -398,6 +418,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
+      white-space: nowrap;
     }
 
     .notif-tab.active {
@@ -758,7 +779,7 @@
     }
 
     .spotlight-title {
-      font-size: 2.1rem;
+      font-size: clamp(1.4rem, 4vw, 2.1rem);
       font-weight: 900;
       letter-spacing: -0.5px;
       margin: 0.5rem 0;
@@ -769,7 +790,7 @@
     .spotlight-title:hover { color: var(--accent); }
 
     .spotlight-synopsis {
-      font-size: 0.9rem;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
       color: var(--text-muted);
       line-height: 1.45;
       display: -webkit-box;
@@ -783,6 +804,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .btn-primary {
@@ -920,6 +942,7 @@
       align-items: center;
       gap: 0.25rem;
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     .shelf-section {
@@ -1152,11 +1175,15 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 0.6rem 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .filter-pills-group {
       display: flex;
       gap: 0.4rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .feed-filter-btn {
@@ -1172,6 +1199,7 @@
       align-items: center;
       gap: 0.3rem;
       transition: all 0.15s;
+      white-space: nowrap;
     }
 
     .feed-filter-btn.active, .feed-filter-btn:hover {
@@ -1199,7 +1227,7 @@
     .card-thumb {
       position: relative;
       background: #090c10;
-      min-height: 200px;
+      min-height: 180px;
       cursor: pointer;
     }
 
@@ -1230,6 +1258,7 @@
       font-size: 0.7rem;
       font-weight: 800;
       color: var(--accent);
+      flex-shrink: 0;
     }
 
     .post-author-name {
@@ -1270,6 +1299,8 @@
       justify-content: space-between;
       border-top: 1px solid var(--border);
       padding-top: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .interaction-pills { display: flex; align-items: center; gap: 0.6rem; }
@@ -1309,6 +1340,7 @@
       align-items: center;
       gap: 0.35rem;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .comment-pill:hover { color: var(--text); border-color: var(--border-hover); }
@@ -1324,6 +1356,7 @@
       gap: 0.5rem;
       font-size: 0.8rem;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
     .step-btn {
@@ -1338,6 +1371,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .step-btn .material-symbols-outlined { font-size: 1rem; }
@@ -1477,6 +1511,196 @@
       color: var(--accent);
       margin: 0.5rem 0;
     }
+
+    .dir-modal-tabs { display: flex; gap: 0.5rem; margin: 1rem 0; overflow-x: auto; }
+
+    .dir-modal-tab {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .dir-modal-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    .dir-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .dir-table th, .dir-table td {
+      padding: 0.75rem;
+      text-align: left;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dir-table a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    /* =========================================================
+       COMPREHENSIVE MOBILE & TABLET RESPONSIVE MEDIA QUERIES
+       ========================================================= */
+    @media (max-width: 1200px) {
+      .dashboard-layout {
+        grid-template-columns: 240px 1fr;
+      }
+      .aside-stack {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .shelf-grid-static {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .shelf-card:nth-child(n+5) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .header-ticker {
+        display: none;
+      }
+      .nav-container {
+        padding: 0.6rem 1rem;
+        gap: 0.75rem;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .aside-stack {
+        grid-column: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        padding: 1rem 1rem 4rem;
+        gap: 1.5rem;
+      }
+      .tier-grid {
+        grid-template-columns: 1fr;
+      }
+      .search-modal {
+        padding-top: 2vh;
+      }
+      .search-modal-box {
+        width: 95%;
+        max-height: 92vh;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .brand-group {
+        gap: 0.75rem;
+      }
+      .dropdown-btn {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.75rem;
+      }
+      .header-right {
+        gap: 0.4rem;
+      }
+      .btn-nsfw {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.7rem;
+      }
+      .icon-btn, .avatar-btn {
+        width: 34px;
+        height: 34px;
+      }
+      .spotlight-banner {
+        min-height: 280px;
+        padding: 1.5rem;
+      }
+      .spotlight-nav {
+        top: 0.6rem;
+        right: 0.6rem;
+      }
+      .spotlight-dots {
+        bottom: 0.6rem;
+        right: 0.8rem;
+      }
+
+      /* Horizontal Scrollable Shelf on Small Screens */
+      .shelf-grid-static {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 0.5rem;
+        gap: 0.75rem;
+      }
+      .shelf-card {
+        flex: 0 0 145px;
+        scroll-snap-align: start;
+      }
+      .shelf-card:nth-child(n+5) {
+        display: flex;
+      }
+      .shelf-poster {
+        height: 195px;
+      }
+
+      /* Mobile Stream Cards */
+      .stream-card {
+        grid-template-columns: 110px 1fr;
+      }
+      .card-body {
+        padding: 0.85rem;
+      }
+      .card-title {
+        font-size: 0.95rem;
+      }
+      .card-snippet {
+        font-size: 0.75rem;
+        -webkit-line-clamp: 2;
+        margin-bottom: 0.6rem;
+      }
+      .card-post-header {
+        margin-bottom: 0.3rem;
+      }
+      .post-time {
+        display: none;
+      }
+      .card-footer {
+        padding-top: 0.5rem;
+      }
+      .comment-pill {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75rem;
+      }
+      .quick-track-pill {
+        padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+        font-size: 0.75rem;
+      }
+      .post-composer-box {
+        padding: 0.75rem 1rem;
+      }
+      .composer-avatar {
+        width: 32px;
+        height: 32px;
+      }
+      .composer-input-fake {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1493,23 +1717,23 @@
         </div>
 
         <nav class="nav-menus">
-          <button class="dropdown-btn" onclick="openModal('directoryModal')">Web Directory</button>
+          <button class="dropdown-btn" onclick="openModal('directoryModal')">Directory</button>
 
           <div class="dropdown">
             <button class="dropdown-btn">My Library ▾</button>
             <div class="dropdown-content">
-              <span class="dropdown-item" onclick="openModal('profileModal')">Currently Watching</span>
-              <span class="dropdown-item" onclick="openModal('profileModal')">Plan to Watch</span>
-              <span class="dropdown-item" onclick="openModal('profileModal')">Completed Library</span>
+              <a href="profile.html" class="dropdown-item">Currently Watching</a>
+              <a href="profile.html" class="dropdown-item">Plan to Watch</a>
+              <a href="profile.html" class="dropdown-item">Completed Library</a>
             </div>
           </div>
         </nav>
       </div>
 
-      <!-- Live Dynamic Status Ticker -->
+      <!-- Live Status Ticker (Hidden on Mobile) -->
       <div class="header-ticker">
         <span class="ticker-pulse"></span>
-        <span id="apiStatus">Connecting to AniList Catalog...</span>
+        <span id="apiStatus">Connecting to AniList...</span>
       </div>
 
       <div class="header-right">
@@ -1530,12 +1754,14 @@
           <span id="notifBadgePill" class="notif-badge-pill">0</span>
         </button>
 
-        <button class="btn-primary" onclick="openModal('donateModal')" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">
-          <span class="material-symbols-outlined" style="font-size: 1rem;">volunteer_activism</span> Support
+        <!-- Support Button -->
+        <button class="btn-primary" onclick="openModal('donateModal')" style="padding: 0.45rem 0.8rem; font-size: 0.8rem;">
+          <span class="material-symbols-outlined" style="font-size: 1rem;">volunteer_activism</span>
         </button>
 
-        <a href="profiles.html" class="avatar-btn" title="Profile & Stats" style="text-decoration: none;">
-            <span class="material-symbols-outlined">person</span>
+        <!-- Profile Link -->
+        <a href="profile.html" class="avatar-btn" title="Profile & Stats">
+          <span class="material-symbols-outlined">person</span>
         </a>
       </div>
     </div>
@@ -1577,7 +1803,7 @@
 
         <div class="filter-row" style="justify-content: space-between; border-top: 1px solid var(--border); padding-top: 0.6rem; margin-top: 0.2rem;">
           <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="filter-label">Sort By:</span>
+            <span class="filter-label">Sort:</span>
             <select id="modalSortSelect" class="filter-select" onchange="runFilterSearch()">
               <option value="POPULARITY_DESC">Most Popular</option>
               <option value="SCORE_DESC">Highest Rated</option>
@@ -1588,7 +1814,7 @@
 
           <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;">
             <input type="checkbox" id="modalNsfwCheck" onchange="runFilterSearch()">
-            <span>Include 18+ Adult Vault</span>
+            <span>18+ Vault</span>
           </label>
         </div>
       </div>
@@ -1608,10 +1834,10 @@
       <div class="notif-header">
         <div class="notif-header-title">
           <span class="material-symbols-outlined" style="color: var(--accent);">notifications</span>
-          <span>Notifications & Alerts</span>
+          <span>Notifications</span>
         </div>
         <div class="notif-actions">
-          <button class="btn-text-action" onclick="markAllNotificationsRead()">Mark all as read</button>
+          <button class="btn-text-action" onclick="markAllNotificationsRead()">Mark read</button>
           <button class="btn-text-action" style="color: var(--text-muted);" onclick="clearAllNotifications()">Clear</button>
           <button class="modal-close" style="position: static;" onclick="closeModal('notifModal')">
             <span class="material-symbols-outlined">close</span>
@@ -1621,9 +1847,9 @@
 
       <div class="notif-tabs">
         <button class="notif-tab active" onclick="filterNotifications('all', this)">All</button>
-        <button class="notif-tab" onclick="filterNotifications('airing', this)">Broadcasts & Drops</button>
+        <button class="notif-tab" onclick="filterNotifications('airing', this)">Broadcasts</button>
         <button class="notif-tab" onclick="filterNotifications('community', this)">Community</button>
-        <button class="notif-tab" onclick="filterNotifications('stash', this)">My Stash</button>
+        <button class="notif-tab" onclick="filterNotifications('stash', this)">Stash</button>
       </div>
 
       <div id="notifStream" class="notif-stream"></div>
@@ -1633,7 +1859,7 @@
   <!-- Main Stage -->
   <main>
     
-    <!-- 1. Auto-Rotating Spotlight (10 Items) + Live Radar -->
+    <!-- 1. Spotlight Banner (Rotates) + Live Radar -->
     <section id="heroGrid" class="hero-grid">
       <div id="spotlightContainer" class="spotlight-banner">
         <div class="spotlight-overlay"></div>
@@ -1651,7 +1877,7 @@
           <div class="spotlight-tags">
             <span class="badge" style="background: var(--accent); color: white;">
               <span class="material-symbols-outlined" style="font-size: 0.9rem;">local_fire_department</span>
-              <span id="spotlightRankLabel">#1 Trending Spotlight</span>
+              <span id="spotlightRankLabel">#1 Spotlight</span>
             </span>
           </div>
           <h1 id="spotlightTitle" class="spotlight-title" onclick="openSpotlightEntry()">Fetching Title...</h1>
@@ -1676,13 +1902,13 @@
             <span id="radarIcon" class="material-symbols-outlined">radar</span>
             <span id="radarTitle">Broadcast Radar</span>
           </span>
-          <span id="radarSub">Live Ticker</span>
+          <span id="radarSub">Live</span>
         </div>
         <div id="radarList" class="radar-list"></div>
       </div>
     </section>
 
-    <!-- 2. Top Releases Shelf -->
+    <!-- 2. Top Releases Shelf (Horizontal touch-swipe on mobile) -->
     <section class="shelf-section">
       <div class="shelf-header">
         <h2 class="shelf-title">
@@ -1704,7 +1930,7 @@
           </h3>
           <div class="gauge-container">
             <div class="gauge-top">
-              <span>Completion Rate</span>
+              <span>Completion</span>
               <span id="gaugePercent" style="color: var(--accent);">0%</span>
             </div>
             <div class="gauge-bar-bg">
@@ -1719,7 +1945,7 @@
 
         <div>
           <h3 class="panel-title" style="margin-bottom: 0.6rem;">
-            <span class="material-symbols-outlined">tune</span> Feed Channels
+            <span class="material-symbols-outlined">tune</span> Channels
           </h3>
           <div class="channel-list">
             <span class="panel-link active" onclick="fetchAniListData(); setActiveChannel(this);">
@@ -1747,7 +1973,7 @@
           </h3>
           <div style="display: flex; flex-direction: column; gap: 0.5rem;">
             <button class="btn-secondary" style="text-align: left; justify-content: flex-start;" onclick="openModal('directoryModal')">
-              <span class="material-symbols-outlined">public</span> Open Web Directory
+              <span class="material-symbols-outlined">public</span> Web Directory
             </button>
             <button class="btn-secondary" style="text-align: left; justify-content: flex-start;" onclick="openModal('donateModal')">
               <span class="material-symbols-outlined">favorite</span> Support Servers
@@ -1756,15 +1982,15 @@
         </div>
       </aside>
 
-      <!-- Center Column: Discussion Post Composer, Filter Bar, & Rich Feed Cards -->
+      <!-- Center Column: Discussion Post Composer, Filter Bar, & Stream Cards -->
       <section class="feed-column">
         
         <div class="post-composer-box">
           <div class="composer-avatar">
             <span class="material-symbols-outlined" style="font-size: 1.1rem;">edit</span>
           </div>
-          <div class="composer-input-fake" onclick="openModal('profileModal')">
-            Create an episode reaction, share a theory, or start a discussion...
+          <div class="composer-input-fake" onclick="window.location.href='profile.html'">
+            Post a reaction, share a theory, or start a discussion...
           </div>
         </div>
 
@@ -1777,10 +2003,10 @@
               <span class="material-symbols-outlined">schedule</span> Newest
             </button>
             <button class="feed-filter-btn" onclick="sortFeedCards('top', this)">
-              <span class="material-symbols-outlined">military_tech</span> Top Rated
+              <span class="material-symbols-outlined">military_tech</span> Top
             </button>
           </div>
-          <span style="font-size: 0.75rem; color: var(--text-muted);">Showing Community Dispatches</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Community Feed</span>
         </div>
 
         <div id="feedColumn" style="display: flex; flex-direction: column; gap: 1.25rem;"></div>
@@ -1792,9 +2018,7 @@
           <h3 class="panel-title">
             <span class="material-symbols-outlined">calendar_today</span> Release Schedule
           </h3>
-          <div id="airScheduleWidget">
-            <!-- Dynamic release highlights -->
-          </div>
+          <div id="airScheduleWidget"></div>
         </div>
 
         <div class="pulse-box">
@@ -1802,17 +2026,17 @@
             <span class="material-symbols-outlined">tag</span> Community Hashtags
           </h3>
           <div class="topic-chip-cloud">
-            <a href="#" class="topic-chip" onclick="fetchByGenre('Action')">#ChainsawManMovie</a>
-            <a href="#" class="topic-chip" onclick="fetchByGenre('Fantasy')">#FrierenFinale</a>
-            <a href="#" class="topic-chip" onclick="fetchByGenre('Psychological')">#JujutsuKaisen254</a>
-            <a href="#" class="topic-chip" onclick="fetchByGenre('Action')">#SoloLevelingEp11</a>
-            <a href="#" class="topic-chip" onclick="fetchByGenre('Romance')">#ApothecaryDiaries</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Action')">#ChainsawMan</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Fantasy')">#Frieren</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Psychological')">#JujutsuKaisen</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Action')">#SoloLeveling</a>
+            <a href="#" class="topic-chip" onclick="fetchByGenre('Romance')">#Apothecary</a>
           </div>
         </div>
 
         <div class="pulse-box">
           <h3 class="panel-title">
-            <span class="material-symbols-outlined">trophy</span> Weekly Top Posters
+            <span class="material-symbols-outlined">trophy</span> Top Posters
           </h3>
           <div class="leaderboard-row">
             <div class="user-tag">
@@ -1871,23 +2095,6 @@
     </div>
   </div>
 
-  <div id="profileModal" class="modal-backdrop">
-    <div class="modal-box">
-      <button class="modal-close" onclick="closeModal('profileModal')">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-      <h2>User Profile</h2>
-      <div style="margin-top: 1rem; line-height: 2; font-size: 0.9rem; color: var(--text-muted);">
-        <div>Username: <strong style="color: var(--text);">Qwideyed</strong></div>
-        <div>Total Titles Saved in Stash: <strong id="profileStashCount" style="color: var(--accent);">0</strong></div>
-        <div>Contribution Score: <strong style="color: var(--accent-blue);">1,420 Karma</strong></div>
-      </div>
-      <button class="btn-primary" style="margin-top: 1.5rem; width: 100%; justify-content: center;" onclick="clearLibrary()">
-        <span class="material-symbols-outlined">delete</span> Clear Stash
-      </button>
-    </div>
-  </div>
-
   <div id="donateModal" class="modal-backdrop">
     <div class="modal-box" style="max-width: 700px;">
       <button class="modal-close" onclick="closeModal('donateModal')">
@@ -1930,8 +2137,8 @@
 
     function updateLibraryUI() {
       const count = Object.keys(userLibrary).length;
-      document.getElementById('libCount').textContent = count;
-      document.getElementById('profileStashCount').textContent = count;
+      const libCount = document.getElementById('libCount');
+      if (libCount) libCount.textContent = count;
 
       const targetGoal = 20;
       const pct = Math.min(Math.round((count / targetGoal) * 100), 100);
@@ -1959,10 +2166,9 @@
       btnModeAnime.classList.add('active');
       btnModeManga.classList.remove('active');
       
-      // Update Radar Presentation to Anime Broadcast
       radarTitle.textContent = 'Broadcast Radar';
       radarIcon.textContent = 'radar';
-      radarSub.textContent = 'Live Ticker';
+      radarSub.textContent = 'Live';
       heroGrid.classList.remove('full-width');
       radarCard.style.display = 'flex';
 
@@ -1975,10 +2181,9 @@
       btnModeManga.classList.add('active');
       btnModeAnime.classList.remove('active');
 
-      // Update Radar Presentation to Manga Chapter Drops
       radarTitle.textContent = 'Chapter Radar';
       radarIcon.textContent = 'auto_stories';
-      radarSub.textContent = 'Recent Releases';
+      radarSub.textContent = 'Recent';
       heroGrid.classList.remove('full-width');
       radarCard.style.display = 'flex';
 
@@ -1999,9 +2204,9 @@
     // Notifications
     let currentNotifFilter = 'all';
     let notificationsList = JSON.parse(localStorage.getItem('allmyani_notifications')) || [
-      { id: 1, category: 'airing', icon: 'rocket_launch', iconColor: 'var(--accent-blue)', text: '<strong>Episode 28 of Frieren</strong> is now available to stream.', time: '12 minutes ago', read: false, link: 'entry.html?id=154587' },
-      { id: 2, category: 'community', icon: 'chat', iconColor: 'var(--accent)', text: '<strong>u/ScanMaster</strong> replied to your comment on <em>Jujutsu Kaisen</em>.', time: '1 hour ago', read: false, link: 'entry.html?id=105556#discussion' },
-      { id: 3, category: 'stash', icon: 'auto_awesome', iconColor: '#ffd166', text: 'Your tracked title <strong>Chainsaw Man</strong> had new staff confirmed.', time: '4 hours ago', read: false, link: 'entry.html?id=127230' }
+      { id: 1, category: 'airing', icon: 'rocket_launch', iconColor: 'var(--accent-blue)', text: '<strong>Episode 28 of Frieren</strong> is now available to stream.', time: '12m ago', read: false, link: 'entry.html?id=154587' },
+      { id: 2, category: 'community', icon: 'chat', iconColor: 'var(--accent)', text: '<strong>u/ScanMaster</strong> replied to your comment on <em>Jujutsu Kaisen</em>.', time: '1h ago', read: false, link: 'entry.html?id=105556#discussion' },
+      { id: 3, category: 'stash', icon: 'auto_awesome', iconColor: '#ffd166', text: 'Your tracked title <strong>Chainsaw Man</strong> had new staff confirmed.', time: '4h ago', read: false, link: 'entry.html?id=127230' }
     ];
 
     function updateNotifBadge() {
@@ -2292,7 +2497,7 @@
 
       document.getElementById('spotlightTitle').textContent = title;
       document.getElementById('spotlightSynopsis').textContent = cleanDesc;
-      document.getElementById('spotlightRankLabel').textContent = `#${spotlightIndex + 1} Trending Spotlight`;
+      document.getElementById('spotlightRankLabel').textContent = `#${spotlightIndex + 1} Spotlight`;
       document.getElementById('spotlightDiscussionBtn').href = `entry.html?id=${item.id}`;
 
       if (banner) {
@@ -2320,12 +2525,12 @@
     spotlightContainer.addEventListener('mouseenter', stopSpotlightRotation);
     spotlightContainer.addEventListener('mouseleave', startSpotlightRotation);
 
-    // Live Precise Airing Countdown
+    // Live Airing Countdown
     let liveCountdownTimer = null;
     let airingMediaTracker = [];
 
     function formatPreciseTime(totalSeconds) {
-      if (totalSeconds <= 0) return 'Airing Now!';
+      if (totalSeconds <= 0) return 'Airing!';
       const days = Math.floor(totalSeconds / 86400);
       const hours = Math.floor((totalSeconds % 86400) / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -2377,7 +2582,7 @@
 
     async function fetchAniListData(genre = null) {
       const apiStatus = document.getElementById('apiStatus');
-      apiStatus.textContent = currentMediaMode === 'ANIME' ? 'Fetching Airing Anime...' : 'Fetching Manga Releases...';
+      apiStatus.textContent = currentMediaMode === 'ANIME' ? 'Fetching Anime...' : 'Fetching Manga...';
       
       const variables = { isAdult: nsfwEnabled, type: currentMediaMode, genre: genre || undefined };
 
@@ -2390,22 +2595,21 @@
         const json = await res.json();
         const list = json.data.Page.media;
         
-        // Dynamic Ticker Label based on Mode and Adult Filter
         let tickerMsg = '';
         if (currentMediaMode === 'ANIME') {
           tickerMsg = nsfwEnabled 
-            ? `18+ Anime Vault • ${list.length} Titles Active` 
-            : `📺 Broadcast Radar • ${list.length} Airing Titles Loaded`;
+            ? `18+ Anime • ${list.length} Titles` 
+            : `📺 Broadcast Radar • ${list.length} Airing Titles`;
         } else {
           tickerMsg = nsfwEnabled 
-            ? `18+ Manga Vault • ${list.length} Volumes Active` 
-            : `📖 Publishing Radar • ${list.length} Manga Releases Loaded`;
+            ? `18+ Manga • ${list.length} Volumes` 
+            : `📖 Publishing Radar • ${list.length} Manga Loaded`;
         }
         apiStatus.textContent = tickerMsg;
 
         renderPage(list);
       } catch (err) {
-        apiStatus.textContent = 'AniList API Offline';
+        apiStatus.textContent = 'AniList Offline';
       }
     }
 
@@ -2419,20 +2623,19 @@
     const mockPosters = [
       { name: 'u/KeiichiroBuff', badge: 'Sakuga Contributor', time: '14m ago' },
       { name: 'u/DomainClash', badge: 'Manga Reader', time: '1h ago' },
-      { name: 'u/ScanMaster', badge: 'Verified Lorekeeper', time: '3h ago' },
-      { name: 'u/HimmelStan', badge: 'Mage Guild', time: '5h ago' },
-      { name: 'u/ZoltraakCaster', badge: 'Episode Lead', time: '8h ago' }
+      { name: 'u/ScanMaster', badge: 'Lorekeeper', time: '3h ago' },
+      { name: 'u/HimmelStan', badge: 'Mage Guild', time: '5h ago' }
     ];
 
     function renderPage(list) {
       if (!list || list.length === 0) return;
 
-      // 1. Spotlight Banner (Items 0 to 9)
+      // 1. Spotlight Banner
       spotlightItems = list.slice(0, 10);
       showSpotlightSlide(0);
       startSpotlightRotation();
 
-      // 2. Adaptive Radar Deck (Broadcast Radar for Anime, Chapter Radar for Manga)
+      // 2. Adaptive Radar Deck
       const radarList = document.getElementById('radarList');
       radarList.innerHTML = '';
       airingMediaTracker = [];
@@ -2458,10 +2661,9 @@
           });
           startLiveCountdown();
         } else {
-          radarList.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem 0;">No broadcast timers in this view.</div>';
+          radarList.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem 0;">No airing alerts found.</div>';
         }
       } else {
-        // MANGA MODE: Show recently updated chapters / volumes
         list.slice(0, 4).forEach(m => {
           const title = m.title.english || m.title.romaji;
           const chapters = m.chapters ? `Ch. ${m.chapters}` : 'Publishing';
@@ -2480,14 +2682,14 @@
         });
       }
 
-      // Update right sidebar schedule widget
+      // 3. Right Sidebar Schedule Highlights
       const scheduleWidget = document.getElementById('airScheduleWidget');
       scheduleWidget.innerHTML = '';
       list.slice(0, 3).forEach(item => {
         const title = item.title.english || item.title.romaji;
         const sub = currentMediaMode === 'ANIME' 
           ? (item.nextAiringEpisode ? `Episode ${item.nextAiringEpisode.episode}` : 'Currently Airing')
-          : (item.chapters ? `${item.chapters} Chapters` : 'Ongoing Series');
+          : (item.chapters ? `${item.chapters} Chapters` : 'Ongoing');
 
         scheduleWidget.innerHTML += `
           <div class="air-schedule-item" onclick="window.location.href='entry.html?id=${item.id}'">
@@ -2503,7 +2705,7 @@
         `;
       });
 
-      // 3. Static Shelf Grid (Items 10 to 15)
+      // 4. Shelf Grid
       const shelf = document.getElementById('shelfGrid');
       shelf.innerHTML = '';
       list.slice(10, 16).forEach(item => {
@@ -2527,7 +2729,7 @@
         `;
       });
 
-      // 4. Center Feed (Items 16 to 24)
+      // 5. Center Feed
       const feed = document.getElementById('feedColumn');
       feed.innerHTML = '';
 
@@ -2560,7 +2762,7 @@
                   </span>
                   ${item.isAdult ? '<span class="badge" style="color: var(--nsfw);">18+</span>' : ''}
                 </div>
-                <h2 class="card-title" onclick="window.location.href='entry.html?id=${item.id}'">${title} - ${unitLabel} Discussion Hub</h2>
+                <h2 class="card-title" onclick="window.location.href='entry.html?id=${item.id}'">${title} - ${unitLabel} Hub</h2>
                 <p class="card-snippet">${cleanDesc}</p>
               </div>
               <div class="card-footer">
@@ -2575,11 +2777,11 @@
                     </button>
                   </div>
                   <a href="entry.html?id=${item.id}#discussion" class="comment-pill">
-                    <span class="material-symbols-outlined">chat</span> ${Math.floor(Math.random() * 120) + 14} Comments
+                    <span class="material-symbols-outlined">chat</span> ${Math.floor(Math.random() * 120) + 14}
                   </a>
                 </div>
                 <div class="quick-track-pill">
-                  <span>Progress: <strong class="ep-val">${userProgress}</strong>/${maxUnit}</span>
+                  <span>${userProgress}/${maxUnit}</span>
                   <button class="step-btn" onclick="stepProgress(${item.id}, this)">
                     <span class="material-symbols-outlined">add</span>
                   </button>
@@ -2598,12 +2800,12 @@
     }
 
     function stepProgress(id, btn) {
-      const valEl = btn.parentElement.querySelector('.ep-val');
-      let current = parseInt(valEl.textContent, 10) + 1;
-      valEl.textContent = current;
+      const valEl = btn.parentElement.querySelector('span');
+      let current = (userLibrary[id] || 0) + 1;
       userLibrary[id] = current;
       localStorage.setItem('allmyani_stash', JSON.stringify(userLibrary));
       updateLibraryUI();
+      fetchAniListData();
     }
 
     function trackCurrentSpotlight() {
@@ -2613,16 +2815,6 @@
       localStorage.setItem('allmyani_stash', JSON.stringify(userLibrary));
       updateLibraryUI();
       alert(`Tracked "${current.title.english || current.title.romaji}"!`);
-    }
-
-    function clearLibrary() {
-      if (confirm('Clear library?')) {
-        userLibrary = {};
-        localStorage.removeItem('allmyani_stash');
-        updateLibraryUI();
-        fetchAniListData();
-        closeModal('profileModal');
-      }
     }
 
     function vote(btn, delta) {
